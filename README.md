@@ -61,6 +61,10 @@ sudo LAB_USERS="alice bob" ./scripts/install.sh   # for several users
 Learners then log in and run `ctf start`. New shell required after
 install so group memberships apply.
 
+A lab machine needs systemd, sudo for each learner, man pages, and — for
+lesson 7 — a reachable package index (it installs `cowsay`). Full list:
+[lab requirements](docs/instructor-guide.md#lab-requirements).
+
 ### Docker (instant lab)
 
 ```bash

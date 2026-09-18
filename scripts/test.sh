@@ -155,6 +155,29 @@ lab() {
   fi
   echo "   reset integrity: PASS (hint-3 lesson: 180 -> reset -> 180)"
 
+  # ---- the lab must provide every command the lessons teach ----
+  echo "== toolbelt check (commands advertised by the lessons)"
+  local missing
+  missing=$(sudo -H -u "$LAB_USER" bash -s <<'TOOLS'
+for c in man ping getfacl setfacl ss dig host getent nc curl ssh ssh-keygen scp \
+         crontab systemctl journalctl tar gzip zip unzip file base64 sed awk paste tr cut \
+         less readlink stat find ps top kill df du env printenv id groups newgrp sudo \
+         apt dpkg chmod chown ln touch mkdir cp mv rm wc head tail sort; do
+  command -v "$c" >/dev/null 2>&1 || printf '%s ' "$c"
+done
+TOOLS
+)
+  if [[ -n "${missing// /}" ]]; then
+    echo "   FAIL: lessons teach commands that this lab does not have: $missing"
+    exit 1
+  fi
+  # man must render a real page, not Ubuntu's "system has been minimized" stub
+  if ! sudo -H -u "$LAB_USER" bash -c 'man ls 2>/dev/null | grep -q "LS(1)"'; then
+    echo "   FAIL: 'man' does not render man pages (lesson 1 teaches it)"
+    exit 1
+  fi
+  echo "   toolbelt: PASS"
+
   # ---- UX: player-facing commands must not leak stray stderr ----
   echo "== CLI stderr check (no awk/grep warnings on the player path)"
   for args in list map status score "brief 5" "open 5" "hint 5 1" "hint 5 3" next help; do

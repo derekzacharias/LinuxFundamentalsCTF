@@ -124,6 +124,18 @@ else
 fi
 (( fails == section_fails )) && pass "validate_lesson covers exactly 1..$LAST"
 
+echo "== invariants: the lab must not pre-solve lessons"
+section_fails=$fails
+# Lesson 7's whole point is `apt install cowsay`. Shipping cowsay in the
+# image (or installing it from install.sh) would make lesson7_checker pass
+# without the learner touching apt — the same masking pattern that hid the
+# lesson-20 journal bug. Lesson payloads belong to the learner.
+if sed 's/#.*$//' "$ROOT_DIR/Dockerfile" "$INSTALL" |
+   grep -qE '(^|[[:space:]])cowsay([[:space:]]|$)'; then
+  fail "cowsay is pre-installed by the image/installer, which masks lesson 7"
+fi
+(( fails == section_fails )) && pass "lesson 7's payload is not pre-installed"
+
 echo "== invariants: lesson count agreement"
 section_fails=$fails
 shipped=$(find "$LESSONS" -maxdepth 1 -name 'lesson*_min.txt' | wc -l)
