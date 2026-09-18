@@ -9,8 +9,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       iproute2 dnsutils less vim-tiny nano cowsay shellcheck rsync cron dbus policykit-1 \
     && rm -rf /var/lib/apt/lists/*
 
-# Lab user with passwordless sudo (lab-only; never in production)
-RUN useradd -m -s /bin/bash -G adm,systemd-journal student \
+# Lab user with passwordless sudo (lab-only; never in production).
+# NOTE: deliberately no extra groups here — install.sh must provision
+# adm/systemd-journal itself, so CI exercises the same path a real lab
+# machine takes. That is what makes lesson 20 work.
+RUN useradd -m -s /bin/bash student \
  && echo 'student ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/student \
  && chmod 440 /etc/sudoers.d/student
 

@@ -41,6 +41,14 @@ score_add() { # score_add <delta>
 }
 mark_hint() { echo "lesson$1:$2" >> "$HINT_FILE"; }
 
+hint_penalty() { # hint_penalty <n> -> XP deducted when that lesson is completed
+  local maxlvl=0 lvl
+  for lvl in $(grep "^lesson$1:" "$HINT_FILE" 2>/dev/null | cut -d: -f2 | sort -u || true); do
+    (( lvl > maxlvl )) && maxlvl=$lvl
+  done
+  case $maxlvl in 2) echo 10 ;; 3) echo 20 ;; *) echo 0 ;; esac
+}
+
 rank_title() { # rank_title <xp>
   local xp=$1
   if   (( xp >= 2200 )); then echo "Linux Master"
@@ -165,7 +173,7 @@ cmd_hint() {
   local f="$LESSON_DIR/lesson${n}_hints.txt"
   [[ -f $f ]] || die "no hints available for lesson $n"
   echo -e "${YELLOW}Hint $lvl for lesson $n:${RESET}"
-  awk -v lvl="$lvl" -F'\|' '/^HINT / { c++; if (c <= lvl) print "  " $0 }' "$f"
+  awk -v lvl="$lvl" -F'|' '/^HINT / { c++; if (c <= lvl) print "  " $0 }' "$f"
   case $lvl in
     2) echo -e "${DIM}(using hint level 2 will cost 10 XP when you complete this lesson)${RESET}"; mark_hint "$n" 2 ;;
     3) echo -e "${DIM}(using hint level 3 will cost 20 XP when you complete this lesson)${RESET}"; mark_hint "$n" 3 ;;
@@ -204,11 +212,8 @@ cmd_submit() {
   echo "lesson$n" >> "$PROGRESS_FILE"
   score_add 100
   # hint penalty: only the deepest hint level used counts
-  local penalty=0 maxlvl=0 lvl
-  for lvl in $(grep "^lesson$n:" "$HINT_FILE" 2>/dev/null | cut -d: -f2 | sort -u || true); do
-    (( lvl > maxlvl )) && maxlvl=$lvl
-  done
-  case $maxlvl in 2) penalty=10;; 3) penalty=20;; esac
+  local penalty
+  penalty=$(hint_penalty "$n")
   if (( penalty > 0 )); then
     score_add -$penalty
     echo -e "${DIM}(hint penalty: -$penalty XP)${RESET}"
@@ -250,8 +255,13 @@ cmd_reset() {
     [[ $target =~ ^[0-9]+$ ]] || die "reset target must be <n> or 'all'"
     if completed "$target"; then
       sed -i "/^lesson$target$/d" "$PROGRESS_FILE" 2>/dev/null || true
-      score_add -100
-      info "Lesson $target marked incomplete (100 XP withdrawn)."
+      # Withdraw exactly what the lesson awarded (100 minus its recorded
+      # hint penalty) so reset + redo is XP-neutral, not a fresh loss.
+      local award penalty
+      penalty=$(hint_penalty "$target")
+      award=$(( 100 - penalty ))
+      score_add -"$award"
+      info "Lesson $target marked incomplete ($award XP withdrawn)."
     else
       info "Lesson $target was not completed — nothing to reset."
     fi

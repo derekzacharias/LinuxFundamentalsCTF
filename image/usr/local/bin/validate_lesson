@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2088  # "~/..." in fail() messages is display text, not a path
 set -euo pipefail
 
 # validate_lesson — runtime skill checks for every lesson.

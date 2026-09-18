@@ -51,4 +51,5 @@ Two acts, 24 lessons. Every lesson: read the OBJECTIVE, study LEARN, solve the T
 - Each lesson: **100 XP**. Course total: **2400 XP**.
 - Hint 1: free. Hint 2: −10 XP. Hint 3: −20 XP (deducted when the lesson is completed).
 - Wrong flag submission: −5 XP.
-- Ranks: Shell Novice (0) → Terminal Rookie (100) → Command-line Adept (400) → Linux Operative (900) → Shell Hacker (1500) → Terminal Legend (2000) → Linux Master (2200). Completing all 24 lessons (even with hint penalties) still reaches Master.
+- Ranks: Shell Novice (0) → Terminal Rookie (100) → Command-line Adept (400) → Linux Operative (900) → Shell Hacker (1500) → Terminal Legend (2000) → Linux Master (2200).
+- Finishing the course does **not** guarantee Master: hint 3 on every lesson costs 480 XP, so the worst reasonable run ends at 1920 XP (Shell Hacker). Master needs a near-clean run (≤200 XP of penalties). Wrong submissions cost 5 XP each and are not capped. `ctf reset <n>` withdraws exactly what that lesson awarded (100 minus its hint penalty), so resetting and redoing a lesson is XP-neutral.

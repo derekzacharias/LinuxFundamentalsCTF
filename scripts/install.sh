@@ -21,6 +21,26 @@ elif [[ -n "${SUDO_USER:-}" && "$SUDO_USER" != "root" ]]; then
   USERS+=("$SUDO_USER")
 fi
 
+echo "[+] Preflight"
+if ! command -v systemctl >/dev/null 2>&1 || [[ ! -d /run/systemd/system ]]; then
+  echo "    WARNING: systemd does not appear to be running here."
+  echo "             Lessons 6, 12, 20 and 23 rely on systemd services and"
+  echo "             will not work until this course runs on a systemd host."
+fi
+if ! command -v sudo >/dev/null 2>&1; then
+  echo "    WARNING: sudo is not installed."
+  echo "             Lessons 4, 20, 22, 23 and 24 require it."
+fi
+for u in "${USERS[@]}"; do
+  # NOTE: `sudo -l -U` exits 0 even for users without sudo rights, so the
+  # policy text is what tells the two cases apart.
+  sudo_policy=$(sudo -l -U "$u" 2>&1 || true)
+  if [[ $sudo_policy == *"is not allowed to run sudo"* ]]; then
+    echo "    WARNING: $u has no sudo rights on this machine."
+    echo "             Lessons 4, 20, 22, 23 and 24 require sudo."
+  fi
+done
+
 echo "[+] Copying course tree to /"
 cp -a "$IMAGE_DIR/." /
 
@@ -123,8 +143,16 @@ EOS
   chown "$u:$u" "$uh/get_flag4.sh"
   chmod 0644 "$uh/get_flag4.sh"
 
-  # Group memberships
-  usermod -aG ctf8,ctf19,ctf21 "$u" || true
+  # Group memberships. adm/systemd-journal are required by lesson 20:
+  # without them `journalctl -u lesson20` hides system messages, so the
+  # learner can neither find the flag nor re-validate the lesson.
+  groups="ctf8,ctf19,ctf21"
+  for g in adm systemd-journal; do
+    if getent group "$g" >/dev/null; then
+      groups="$groups,$g"
+    fi
+  done
+  usermod -aG "$groups" "$u" || true
 
   # State dir
   install -d -m 0700 -o "$u" -g "$u" "$uh/.ctf_state" || true

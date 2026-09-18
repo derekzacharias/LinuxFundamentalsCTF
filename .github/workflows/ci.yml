@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: bash -n + shellcheck
+      - name: lint (bash -n + invariants + shellcheck)
         run: ./scripts/test.sh lint
 
   lab:
@@ -36,6 +36,16 @@ jobs:
           docker exec lab bash -c "systemctl is-active lesson6-logger lesson12-server lesson23-server"
       - name: Run all 24 lessons (solvers + validators)
         run: docker exec lab bash -c "cd /opt/LinuxFundamentalsCTF && ./scripts/test.sh --lab student"
+      - name: Uninstall check (fresh container, nothing left behind)
+        run: |
+          docker run -d --privileged --name lab-uninstall linux-ctf-lab
+          for i in $(seq 1 30); do
+            docker exec lab-uninstall systemctl is-system-running --wait >/dev/null 2>&1 && break
+            sleep 3
+          done
+          docker exec lab-uninstall bash -c "cd /opt/LinuxFundamentalsCTF && ./scripts/test.sh --uninstall"
       - name: Container logs on failure
         if: failure()
-        run: docker logs lab --tail 200
+        run: |
+          docker logs lab --tail 200 || true
+          docker logs lab-uninstall --tail 200 || true

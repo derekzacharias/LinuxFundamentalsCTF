@@ -30,9 +30,12 @@
    install.sh adds.
 
 ## Build, Test, and Development Commands
-- `./scripts/test.sh` — lint (bash -n + shellcheck)
+- `./scripts/test.sh` — lint (bash -n + `check-invariants.sh` + shellcheck)
 - `sudo ./scripts/test.sh --lab` — end-to-end on an installed lab
-  (solves + validates all 24 lessons)
+  (solves + validates all 24 lessons, plus journal-access, game-loop,
+  reset-integrity, CLI-stderr and solver re-run checks)
+- `sudo ./scripts/test.sh --uninstall` — removes the lab, then asserts
+  nothing was left behind (run in a throwaway container/VM)
 - `docker build -t linux-ctf-lab . && docker run -d --privileged --name lab linux-ctf-lab`
   then `docker exec lab bash -c "cd /opt/LinuxFundamentalsCTF && ./scripts/test.sh --lab student"`
 - `bash -n <file>` for quick syntax checks

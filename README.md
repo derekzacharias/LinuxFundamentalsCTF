@@ -25,7 +25,8 @@ Every lesson follows the same loop:
 
 Stuck? `ctf hint <n> 1` is free. Levels 2 and 3 cost 10/20 XP at lesson
 completion. Wrong submissions cost 5 XP. 100 XP per lesson, 2400 total —
-ranks from *Shell Novice* to *Linux Master* (2200+).
+ranks from *Shell Novice* to *Linux Master* (2200+), so Master needs a
+near-clean run. `ctf reset <n>` refunds exactly what the lesson awarded.
 
 ## Curriculum
 
@@ -82,8 +83,9 @@ Dockerfile       reproducible lab image (Ubuntu + systemd)
 ## Development
 
 ```bash
-./scripts/test.sh               # lint: bash -n + shellcheck
+./scripts/test.sh               # lint: bash -n + invariants + shellcheck
 sudo ./scripts/test.sh --lab    # end-to-end: solves + validates all 24 lessons
+sudo ./scripts/test.sh --uninstall   # destructive: asserts a clean uninstall
 ```
 
 ## Security note

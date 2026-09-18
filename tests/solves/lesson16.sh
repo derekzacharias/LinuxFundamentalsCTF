@@ -6,7 +6,7 @@ chmod +x ~/lesson16_worker.sh
 pid=$!
 sleep 1
 kill -USR1 "$pid"
-for i in $(seq 1 10); do
+for _ in $(seq 1 10); do
   [[ -f ~/lesson16_flag.txt ]] && break
   sleep 1
 done

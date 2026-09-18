@@ -6,6 +6,12 @@
    `LAB_USERS="alice bob carol"` — each gets their own hidden files and
    progress state).
 2. Install: `sudo ./scripts/install.sh`
+
+   install.sh adds every lab user to the `adm` and `systemd-journal`
+   groups — without them `journalctl -u lesson20` hides the flag and
+   lesson 20 cannot be completed. It also warns when systemd is not
+   running or a learner has no sudo rights; lessons 4, 20, 22, 23 and 24
+   require sudo.
 3. Tell learners: log in, type `ctf start`, read, solve, submit.
 4. Check progress any time: `sudo ctf status` won't work for other
    users — instead read `~user/.ctf_state/` (progress, score, hints,
@@ -31,7 +37,20 @@
 
 `tests/solves/lessonNN.sh` — each is a scripted, minimal solution. Run
 them on the lab machine as the learner user to reproduce any challenge
-end-to-end. (Also what CI runs.)
+end-to-end. (Also what CI runs.) Solvers are idempotent — running one
+twice is safe, and `scripts/test.sh --lab` re-runs all 24 to prove it.
+
+## Repository checks
+
+```bash
+./scripts/test.sh              # lint: bash -n, invariants, shellcheck
+./scripts/check-invariants.sh  # flag/hash sync, hint format, solver coverage, ...
+```
+
+The invariant checker exists because a broken check is worse than no
+check: it verifies that flags match their hashes, that no flag value
+leaks into lesson text, that every lesson still has a solver and a
+validator case, and that install/uninstall stay symmetric.
 
 ## Timing guide
 
@@ -55,6 +74,7 @@ Total: roughly 10–16 hours, fundamentals-only (1–12): 4–6 hours.
 | Lesson 8/19 "not readable" | new login shell after install (`newgrp ctf8`) |
 | Lesson 12/23 unreachable | `sudo systemctl status lesson12-server lesson23-server` |
 | Lesson 20 already active | `sudo systemctl stop lesson20 && sudo systemctl disable lesson20` then have the learner redo it |
+| Lesson 20 journal empty | the learner is missing `adm`/`systemd-journal`; re-run `sudo ./scripts/install.sh` (it grants them) and log in again |
 | Lesson 22 ssh refused | `sudo systemctl status ssh`; key must be in `/home/ctf22/.ssh/authorized_keys` |
 
 ## Extending the course
