@@ -1,4 +1,4 @@
 Lesson 20 — systemd
-  Start + enable lesson20.service, then read its journal
-  (journalctl -u lesson20) to find the flag.
+  Start + enable lesson20.service, then read its journal (journalctl -u lesson20) for the flag.
 Submit: ctf submit 20 FLAG{...}
+Help:   ctf hint 20 1

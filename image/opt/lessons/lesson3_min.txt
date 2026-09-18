@@ -1,4 +1,4 @@
 Lesson 3 — File operations
-  Reassemble the split flag from /opt/challenges/lesson3_template
-  into ~/project3/final.flag.
+  Reassemble the split flag from /opt/challenges/lesson3_template into ~/project3/final.flag (copy dir, mkdir secret, mv parts, concatenate).
 Submit: ctf submit 3 FLAG{...}
+Help:   ctf hint 3 1

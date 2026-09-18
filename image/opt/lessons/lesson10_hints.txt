@@ -1,3 +1,3 @@
-HINT 1 | Count logs: find "$1" -name '*.log' | wc -l  — compare the count to 7 with if.
+HINT 1 | Count only the top-level logs: find "$1" -maxdepth 1 -name '*.log' | wc -l  (or: ls "$1"/*.log | wc -l) — compare to 7.
 HINT 2 | The flag line lives in one of the logs and contains the word FLAG. grep for it.
 HINT 3 | if [[ $(find "$1" -maxdepth 1 -name '*.log' | wc -l) -eq 7 ]]; then grep -h FLAG "$1"/*.log; fi

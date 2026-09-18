@@ -1,5 +1,4 @@
-Lesson 22 — SSH & remote access
-  Create ~/.ssh/id_ctf22, install the public key into ctf22's
-  authorized_keys via sudo, then ssh ctf22@localhost and read
-  /home/ctf22/flag.txt.
+Lesson 22 — SSH
+  Create ~/.ssh/id_ctf22, install the pubkey into ctf22's authorized_keys (sudo), then ssh ctf22@localhost and read /home/ctf22/flag.txt.
 Submit: ctf submit 22 FLAG{...}
+Help:   ctf hint 22 1

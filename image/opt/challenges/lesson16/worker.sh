@@ -8,5 +8,5 @@ on_usr1() {
   exit 0
 }
 trap on_usr1 USR1
-echo "$$ ready: waiting for SIGUSR1 (kill -USR1 $$)" 
+echo "$$ ready: waiting for the right signal" 
 while true; do sleep 1; done

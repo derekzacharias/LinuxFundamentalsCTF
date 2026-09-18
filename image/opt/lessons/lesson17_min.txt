@@ -1,4 +1,4 @@
 Lesson 17 — sed & awk
-  Extract the flag column from /opt/data/lesson17/payload.csv
-  (characters per row), join them, save to ~/lesson17/flag.txt.
+  Extract the flag column from /opt/data/lesson17/payload.csv, join the characters, save to ~/lesson17/flag.txt.
 Submit: ctf submit 17 FLAG{...}
+Help:   ctf hint 17 1

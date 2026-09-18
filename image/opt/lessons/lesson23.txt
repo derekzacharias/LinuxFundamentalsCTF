@@ -20,8 +20,9 @@ LEARN
 
 TASK
   A service on this machine serves the flag ONLY when asked by its
-  proper name. Discover the listening port, work out the name it wants,
-  make the name resolve on this machine, and fetch the flag.
+  proper name. Discover the listening port, ask the service who it
+  expects (try the obvious request and read the reply), make that
+  name resolve on this machine, and fetch the flag.
 
 SUBMIT
   ctf submit 23 <your_flag>

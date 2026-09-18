@@ -7,7 +7,7 @@
 
 ### What worked
 - A clear 12-lesson fundamentals arc (orientation → filesystem → files → perms → text → processes → packages → users/groups → PATH → scripting → search → networking).
-- Solid core tooling: `lessons` CLI with menu/pager, `submit_flag`, `check_flag`, `hint`, `progress`, `validate_lesson`, MOTD-style `welcome.txt`.
+- Solid core tooling: `ctf` CLI (with `lessons` kept as a back-compat wrapper) with menu/pager, `ctf submit`, `check_flag`, `hint`, `progress`, `validate_lesson`, MOTD-style `welcome.txt`.
 - Per-user artifacts created at install time (hidden dir, wrapper script, group membership).
 - systemd-backed dynamic challenges (lesson 6 logger, lesson 12 HTTP flag server).
 
@@ -29,10 +29,10 @@
 
 1. **Command line only.** Every lesson is solvable from a plain shell — no GUI, no web app, no external services beyond localhost.
 2. **Learn, then do.** Each lesson has four sections: OBJECTIVE → LEARN → TASK → HINTS/SUBMIT. The LEARN section teaches the skill; the TASK requires applying it without spoilers.
-3. **Skills are verified, not just flags.** `submit_flag` runs `validate_lesson`, which checks that the learner actually performed the skill (file created, permission changed, cron installed, service started...).
+3. **Skills are verified, not just flags.** `ctf submit` runs `validate_lesson`, which checks that the learner actually performed the skill (file created, permission changed, cron installed, service started...).
 4. **Progressive difficulty, cumulative skills.** Act I (Fundamentals, 1–12) teaches tools in isolation. Act II (Intermediate, 13–24) combines them; lesson 24 is a multi-stage capstone.
 5. **Game mechanics:** XP (100/lesson), hint costs (hint 1 free, hint 2 = −10 XP, hint 3 = −20 XP), wrong submissions −5 XP, rank titles, `ctf status`/`ctf score` dashboards, `ctf reset`.
-6. **Honest challenge design.** Flags are not world-readable where the lesson is about access; where a flag must be stored, only a SHA-256 hash is readable by the learner (no plaintext leak, `check_flag` compares hashes).
+6. **Honest challenge design, honest threat model.** `check_flag` compares SHA-256 hashes, so protected flags in `/opt/flags` leak nothing through that path. But this is a LOCAL lab: lesson text, hint files, and validator scripts live on the same disk as the learner, so flag values are ultimately discoverable (grep the hints, read the scripts). The game accepts this — the real gate is the SKILL validator, which checks the artifacts each lesson must produce. Flag secrecy is best-effort; skill proof is enforced.
 7. **Reproducible and tested.** A `Dockerfile` builds the lab; CI installs the course, runs a scripted "student solver" for every lesson, then asserts every `validate_lesson` passes. Solvers double as the instructor answer key.
 
 ## 3. Curriculum map

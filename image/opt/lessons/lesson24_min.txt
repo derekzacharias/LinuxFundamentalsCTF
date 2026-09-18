@@ -1,4 +1,4 @@
 Lesson 24 — CAPSTONE
-  Six stages starting at /opt/challenges/lesson24/stage1.
-  Work through them; final flag goes in ~/lesson24/flag.txt.
+  Six stages from /opt/challenges/lesson24/stage1 to ~/lesson24/flag.txt: decode, extract, search, trace, permissions, transform.
 Submit: ctf submit 24 FLAG{...}
+Help:   ctf hint 24 1

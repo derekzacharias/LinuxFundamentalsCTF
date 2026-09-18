@@ -43,8 +43,8 @@ mark_hint() { echo "lesson$1:$2" >> "$HINT_FILE"; }
 
 rank_title() { # rank_title <xp>
   local xp=$1
-  if   (( xp >= 2400 )); then echo "Linux Master"
-  elif (( xp >= 2100 )); then echo "Terminal Legend"
+  if   (( xp >= 2200 )); then echo "Linux Master"
+  elif (( xp >= 2000 )); then echo "Terminal Legend"
   elif (( xp >= 1500 )); then echo "Shell Hacker"
   elif (( xp >= 900 ));  then echo "Linux Operative"
   elif (( xp >= 400 ));  then echo "Command-line Adept"
@@ -60,6 +60,7 @@ Linux Fundamentals CTF — command-line game
   ctf start             Open lesson 1
   ctf list              List all lessons with completion status
   ctf open <n>          Display lesson n (LEARN + TASK)
+  ctf brief <n>         Quick task card for lesson n (no spoilers)
   ctf next              Open the next unfinished lesson
   ctf hint <n> [1-3]    Get a hint (1 free, 2 = -10 XP, 3 = -20 XP)
   ctf submit <n> FLAG   Submit a flag for lesson n
@@ -90,6 +91,14 @@ cmd_list() {
   echo "Legend: ✓ done · not done   —   Open with: ctf open <n>"
 }
 
+cmd_brief() {
+  local n=${1:?usage: ctf brief <n>}
+  [[ $n =~ ^[0-9]+$ && $n -ge 1 && $n -le $LAST_LESSON ]] || die "lesson must be 1-$LAST_LESSON"
+  local f="$LESSON_DIR/lesson${n}_min.txt"
+  [[ -f $f ]] || die "no task card for lesson $n"
+  cat "$f"
+}
+
 cmd_open() {
   local n=${1:?usage: ctf open <n>}
   [[ $n =~ ^[0-9]+$ && $n -ge 1 && $n -le $LAST_LESSON ]] || die "lesson must be 1-$LAST_LESSON"
@@ -106,7 +115,7 @@ cmd_next() {
   local n=1
   while completed "$n" && (( n <= LAST_LESSON )); do n=$((n+1)); done
   if (( n > LAST_LESSON )); then
-    echo "All $LAST_LESSON lessons completed. You are a ${BOLD}Linux Master${RESET}!"
+    echo "All $LAST_LESSON lessons completed — course finished! (rank: $(rank_title "$(score_get)"))"
     return 0
   fi
   echo "Next up: Lesson $n — $(lesson_title "$n")"
@@ -170,9 +179,15 @@ cmd_submit() {
   completed "$n" && { echo "Lesson $n already completed."; return 0; }
 
   if ! "$BIN_DIR/check_flag" "$n" "$flag"; then
-    echo -e "${RED}❌ Wrong flag for lesson $n.${RESET} (-5 XP)"
     echo "lesson$n:fail" >> "$ATTEMPT_FILE"
+    before=$(score_get)
     score_add -5
+    after=$(score_get)
+    if (( after < before )); then
+      echo -e "${RED}❌ Wrong flag for lesson $n.${RESET} (-5 XP)"
+    else
+      echo -e "${RED}❌ Wrong flag for lesson $n.${RESET} (no XP to lose yet)"
+    fi
     echo -e "Stuck? Try: ${YELLOW}ctf hint $n 1${RESET}"
     return 1
   fi
@@ -203,7 +218,8 @@ cmd_submit() {
   if (( next <= LAST_LESSON )); then
     echo "Next: ctf open $next   (or 'ctf next')"
   else
-    echo -e "${BOLD}All $LAST_LESSON lessons complete. You are a Linux Master!${RESET}"
+    echo -e "${BOLD}All $LAST_LESSON lessons complete — course finished!${RESET}"
+    echo -e "Your rank: $(rank_title "$(score_get)") — see: ctf score"
   fi
 }
 
@@ -234,8 +250,6 @@ cmd_reset() {
     [[ $target =~ ^[0-9]+$ ]] || die "reset target must be <n> or 'all'"
     if completed "$target"; then
       sed -i "/^lesson$target$/d" "$PROGRESS_FILE" 2>/dev/null || true
-      sed -i "/^lesson$target:/d" "$HINT_FILE" 2>/dev/null || true
-      sed -i "/^lesson$target:/d" "$ATTEMPT_FILE" 2>/dev/null || true
       score_add -100
       info "Lesson $target marked incomplete (100 XP withdrawn)."
     else
@@ -251,6 +265,7 @@ case $cmd in
   start)            cmd_open 1 ;;
   list)             cmd_list ;;
   open)             cmd_open "${1:-1}" ;;
+  brief)            cmd_brief "${1:?usage: ctf brief <n>}" ;;
   next)             cmd_next ;;
   hint)             cmd_hint "$@" ;;
   submit)           cmd_submit "$@" ;;

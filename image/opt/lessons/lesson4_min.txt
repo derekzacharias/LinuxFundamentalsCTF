@@ -1,3 +1,4 @@
 Lesson 4 — Permissions
-  ~/get_flag4.sh has no execute bit. chmod u+x it, then sudo it.
+  ~/get_flag4.sh has no execute bit. chmod u+x it, then run with sudo.
 Submit: ctf submit 4 FLAG{...}
+Help:   ctf hint 4 1

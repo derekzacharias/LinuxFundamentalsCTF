@@ -1,3 +1,4 @@
 Lesson 9 — PATH
-  Add /opt/tools to PATH in ~/.bashrc, source it, run lesson9_flag.
+  Add /opt/tools to PATH via ~/.bashrc, source it, then run lesson9_flag.
 Submit: ctf submit 9 FLAG{...}
+Help:   ctf hint 9 1

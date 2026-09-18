@@ -1,4 +1,4 @@
 Lesson 6 — Processes & logs
-  A "lesson6" service writes a flag to its log every so often.
-  Find the log under /var/log and tail -f it.
+  A lesson6 service writes a flag to its log every ~10s. Find the log under /var/log and tail -f it.
 Submit: ctf submit 6 FLAG{...}
+Help:   ctf hint 6 1

@@ -1,4 +1,4 @@
 Lesson 5 — Text & pipes
-  Find the FLAGLINE line in /opt/data/lesson5_data.txt,
-  save it to ~/lesson5_flag.txt.
+  In /opt/data/lesson5_data.txt, find the FLAGLINE line that holds the real flag. Save it to ~/lesson5_flag.txt.
 Submit: ctf submit 5 FLAG{...}
+Help:   ctf hint 5 1

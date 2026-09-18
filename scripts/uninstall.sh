@@ -19,7 +19,6 @@ rm -f /usr/local/bin/ctf /usr/local/bin/lessons /usr/local/bin/lesson /usr/local
       /usr/local/bin/lesson12_server.py /usr/local/bin/lesson16_worker.sh \
       /usr/local/bin/lesson20_flag.sh /usr/local/bin/lesson21_checker /usr/local/bin/lesson23_server.py
 rm -rf /var/spool/lesson21 /var/log/lesson6.log /var/log/lesson12_access.log
-rm -f /etc/motd
 
 if id ctf22 >/dev/null 2>&1; then userdel -r ctf22 2>/dev/null || true; fi
 for g in ctf8 ctf19 ctf21; do groupdel "$g" 2>/dev/null || true; done

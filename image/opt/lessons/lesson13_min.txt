@@ -1,4 +1,4 @@
 Lesson 13 — Archives
-  Nested archives in /opt/challenges/lesson13 hide a flag file.
-  Extract into ~/lesson13 and read it.
+  Extract the nested archives from /opt/challenges/lesson13/treasure.bin into ~/lesson13 and find flag.txt.
 Submit: ctf submit 13 FLAG{...}
+Help:   ctf hint 13 1

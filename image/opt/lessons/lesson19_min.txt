@@ -1,5 +1,4 @@
-Lesson 19 — Permissions & ACLs deep dive
-  Write a file in /opt/challenges/lesson19/shared (check group
-  inheritance). Read /opt/flags/lesson19.flag (group ctf19). Put your
-  username in ~/lesson19/shared_notes.txt.
+Lesson 19 — Permissions & ACLs
+  Write a file in the setgid dir /opt/challenges/lesson19/shared (check group inheritance). Read /opt/flags/lesson19.flag. Save your username to ~/lesson19/shared_notes.txt.
 Submit: ctf submit 19 FLAG{...}
+Help:   ctf hint 19 1

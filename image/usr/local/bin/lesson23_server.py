@@ -11,7 +11,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         if host.split(":")[0] != "flag.service.local":
             self.send_response(421)
             self.end_headers()
-            self.wfile.write(b"Misdirected: wrong Host header\n")
+            self.wfile.write(b"Misdirected request: this service only answers for host flag.service.local\n")
             return
         self.send_response(200)
         self.end_headers()

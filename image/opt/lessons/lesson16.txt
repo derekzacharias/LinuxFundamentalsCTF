@@ -21,8 +21,9 @@ LEARN
 TASK
   Copy /opt/challenges/lesson16/worker.sh to ~/lesson16_worker.sh,
   make it executable, and run it in the background. The worker waits
-  for SIGUSR1; when it receives it, it writes the flag to
-  ~/lesson16_flag.txt. Send the signal, then read the flag.
+  for a specific signal; when it receives it, it writes the flag to
+  ~/lesson16_flag.txt. Read the worker's source (trap) or use
+  kill -l to work out which signal it wants. Send it, then read the flag.
 
 SUBMIT
   ctf submit 16 <your_flag>

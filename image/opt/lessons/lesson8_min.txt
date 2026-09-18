@@ -1,4 +1,4 @@
 Lesson 8 — Users & groups
-  /opt/flags/lesson8.flag is readable by group ctf8.
-  Check id, then read the flag (newgrp ctf8 if needed).
+  /opt/flags/lesson8.flag is readable by group ctf8. Confirm membership (id) and read it (newgrp if needed).
 Submit: ctf submit 8 FLAG{...}
+Help:   ctf hint 8 1

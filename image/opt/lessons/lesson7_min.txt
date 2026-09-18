@@ -1,3 +1,4 @@
 Lesson 7 — Packages
-  sudo apt update && sudo apt install cowsay, then run lesson7_checker.
+  Install cowsay with apt, then run lesson7_checker.
 Submit: ctf submit 7 FLAG{...}
+Help:   ctf hint 7 1

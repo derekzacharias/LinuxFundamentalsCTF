@@ -25,7 +25,7 @@ Every lesson follows the same loop:
 
 Stuck? `ctf hint <n> 1` is free. Levels 2 and 3 cost 10/20 XP at lesson
 completion. Wrong submissions cost 5 XP. 100 XP per lesson, 2400 total —
-ranks from *Shell Novice* to *Linux Master*.
+ranks from *Shell Novice* to *Linux Master* (2200+).
 
 ## Curriculum
 

@@ -1,4 +1,4 @@
 Lesson 1 — Orientation
-  Read /opt/flags/lesson1.flag
+  Find and read the flag file for lesson 1 under /opt/flags.
 Submit: ctf submit 1 FLAG{...}
 Help:   ctf hint 1 1

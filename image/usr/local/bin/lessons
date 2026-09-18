@@ -11,5 +11,6 @@ cmd=${1:-}
 case $cmd in
   menu) exec ctf open 1 ;;
   "") usage ;;
+  [0-9]*) exec ctf open "$cmd" ;;
   *) exec ctf "$@" ;;
 esac
