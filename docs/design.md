@@ -51,4 +51,4 @@ See `docs/curriculum.md` for per-lesson learning objectives.
 |-----------|-------|---------|
 | 1 | Rebuild: docs, 24 lessons, tooling, validators, data, install, tests, CI | Built; awaiting review |
 | 2 | Independent review + live lab run: fixed 19 findings (hard-link kernel policy, systemd-in-container, validator fidelity, XP/reset exploits, hint tiering, data realism, CI robustness) | all 24 lessons PASS in lab container |
-| 3 | Second independent review + final verification; polish; push | (to be filled) |
+| 3 | Second independent review (fix verification + cheat audit + game-loop trace); fixed rank semantics, hint-penalty integrity, L10/L16/L23 pedagogy, wired `ctf brief` task cards, honest threat-model docs; live play-test exposed and fixed a critical bash `${:?}` parsing bug that broke `ctf submit`; game-loop regression added to CI | all 24 lessons + game loop PASS in fresh lab container |
