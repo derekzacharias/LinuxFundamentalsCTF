@@ -1,0 +1,3 @@
+HINT 1 | Filter the right lines: grep ' 418 ' /opt/data/lesson18/access.log
+HINT 2 | Extract the pieces: grep -oE 'piece=[A-Za-z0-9_{}]+' /opt/data/lesson18/access.log | cut -d= -f2
+HINT 3 | Join with paste -sd '' and save: grep -oE 'piece=[A-Za-z0-9_{}]+' /opt/data/lesson18/access.log | cut -d= -f2 | paste -sd '' > ~/lesson18/flag.txt

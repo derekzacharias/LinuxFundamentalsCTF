@@ -1,0 +1,3 @@
+HINT 1 | Start by identifying the outer archive: file /opt/challenges/lesson13/treasure.bin
+HINT 2 | List before extracting: tar -tf treasure.bin  — then extract with tar -xf into ~/lesson13.
+HINT 3 | The chain is .tar.gz → .tar.gz → .zip → flag.txt. Use tar -xzf and unzip in turn.

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Back-compat wrapper: progress -> ctf status
+set -euo pipefail
+exec ctf status

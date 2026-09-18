@@ -1,0 +1,5 @@
+Lesson 23 — Networking tools
+  A local service serves the flag only for a specific Host name.
+  Find the port (ss -tlnp), add the name to /etc/hosts (sudo), and
+  curl with the right Host header.
+Submit: ctf submit 23 FLAG{...}

@@ -1,0 +1,28 @@
+Lesson 6: Processes and Job Control
+═══════════════════════════════════════
+
+OBJECTIVE
+  List processes, search by name, and inspect logs.
+
+LEARN
+    ps aux           → snapshot of every process
+    ps aux | grep X  → find processes whose command line mentions X
+    top / htop       → live view (q to quit)
+    kill PID         → send a signal to a process (default: terminate)
+    tail -f FILE     → follow a log as it grows (Ctrl-C to stop)
+    systemctl status NAME.service → check a background service
+
+  Programs that run in the background are services. Many of them write
+  logs so you can see what they are doing.
+
+TASK
+  A service with "lesson6" in its name is running and writes to a log
+  file under /var/log. The flag appears in the log periodically.
+  Find the service, find its log, and watch it until the flag appears.
+
+SUBMIT
+  ctf submit 6 <your_flag>
+
+KEY TAKEAWAY
+  ps tells you what runs; logs tell you what it does; tail -f lets you
+  watch live. This trio solves most "what is happening?" questions.

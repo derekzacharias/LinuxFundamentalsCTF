@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Entry point: welcome banner, then the game.
+set -euo pipefail
+ctf-welcome
+ctf status
+echo
+echo "Begin with: ctf open 1"

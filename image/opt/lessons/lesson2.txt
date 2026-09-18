@@ -1,0 +1,33 @@
+Lesson 2: Filesystem Navigation and Paths
+═════════════════════════════════════════
+
+OBJECTIVE
+  Understand the directory tree: absolute vs relative paths and hidden files.
+
+LEARN
+  The filesystem is a tree. Your home directory is ~ (same as /home/<you>).
+
+    cd DIR      → change directory
+    cd ~        → go home
+    cd ..       → go up one level
+    cd -        → go back to the previous directory
+    pwd         → print working directory
+    ls -a       → list ALL files, including hidden ones
+    ls -l       → long format (permissions, owner, size, date)
+
+  Names starting with a dot (.) are hidden. They exist; ls just skips
+  them unless you ask with -a.
+
+  Paths can be absolute (start at /, like /home/you/file) or relative
+  (start where you are, like ./file or ../file).
+
+TASK
+  Something was hidden in your home directory when the course was
+  installed. It contains the flag for this lesson. Find it and read it.
+
+SUBMIT
+  ctf submit 2 <your_flag>
+
+KEY TAKEAWAY
+  Hidden files, absolute vs relative paths, and cd — the filesystem is
+  yours now. When in doubt, use absolute paths.

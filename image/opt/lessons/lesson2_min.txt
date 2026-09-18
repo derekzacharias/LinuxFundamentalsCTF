@@ -1,0 +1,4 @@
+Lesson 2 — Paths & hidden files
+  A hidden directory in your home holds a flag file.
+  ls -a in your home; read the file inside.
+Submit: ctf submit 2 FLAG{...}

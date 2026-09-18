@@ -1,0 +1,26 @@
+Lesson 24: CAPSTONE — The Breach
+═════════════════════════════════════════
+
+OBJECTIVE
+  Combine everything from lessons 1-23 into one multi-stage hunt.
+
+LEARN
+  No new tools here. You have all of them. The capstone is six stages,
+  each unlocking the next. When stuck, remember your toolbelt:
+
+    file, cat, base64, tar, unzip, grep -R, find, sed, awk, readlink,
+    chmod, sudo, crontab -l, journalctl, ss, curl, ssh, stat, ls -li
+
+TASK
+  Evidence of a breach was staged in /opt/challenges/lesson24.
+  Start with the file named stage1 and work your way to the flag.
+  Each stage is a small puzzle using one skill from the course.
+  Collect the final flag in ~/lesson24/flag.txt.
+
+SUBMIT
+  ctf submit 24 <your_flag>
+
+KEY TAKEAWAY
+  Real Linux work is never one tool — it is a chain of small moves.
+  If you finished this course, you can think in that chain.
+  Welcome to the command line. It is yours now.

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Lesson 21: verifies the learner's cron entry and worker script, then prints the flag.
+set -euo pipefail
+if ! crontab -l 2>/dev/null | grep -q 'lesson21_worker'; then
+  echo "No crontab entry for lesson21_worker. Add one with: crontab -e" >&2
+  exit 1
+fi
+worker="$HOME/lesson21_worker.sh"
+if [[ ! -x "$worker" ]]; then
+  echo "$worker is missing or not executable" >&2
+  exit 1
+fi
+out=$("$worker" 2>/dev/null || true)
+if echo "$out" | grep -q 'FLAG{lesson_21_cron_crusader}'; then
+  echo "FLAG{lesson_21_cron_crusader}"
+else
+  echo "Worker ran but did not produce the flag. It must decode /opt/data/lesson21/seed.txt." >&2
+  exit 1
+fi

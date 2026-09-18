@@ -1,0 +1,3 @@
+HINT 1 | Check it: systemctl status lesson20  (it should be inactive/dead)
+HINT 2 | systemctl start lesson20 && systemctl enable lesson20
+HINT 3 | journalctl -u lesson20 --no-pager -n 100 | grep FLAG

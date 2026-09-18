@@ -1,0 +1,39 @@
+Lesson 21: Cron and Scheduling
+══════════════════════════════════════════
+
+OBJECTIVE
+  Schedule commands with cron.
+
+LEARN
+  cron runs scheduled jobs. Each user has a crontab.
+
+    crontab -l        → list your jobs
+    crontab -e        → edit your jobs (choose an editor)
+    crontab -r        → remove your jobs
+
+  Entry format (minute hour day month weekday):
+
+    * * * * * COMMAND        → every minute
+    0 9 * * 1 COMMAND        → Mondays at 09:00
+    */5 * * * * COMMAND      → every 5 minutes
+    @reboot COMMAND          → once at boot
+
+  Output goes nowhere by default — redirect to a log to see it:
+    * * * * * /path/script.sh >> /var/log/myscript.log 2>&1
+
+  System jobs: /etc/cron.d (see journalctl -u cron for cron's log).
+
+TASK
+  The flag is guarded by lesson21_checker. It verifies two things:
+    1. Your crontab contains a job that runs ~/lesson21_worker.sh
+       every minute, appending output to /var/spool/lesson21/submissions.log
+    2. The worker script is executable and, when run, decodes
+       /opt/data/lesson21/seed.txt and prints the flag.
+  Write the worker, install the cron entry, then run lesson21_checker.
+
+SUBMIT
+  ctf submit 21 <your_flag>
+
+KEY TAKEAWAY
+  cron turns scripts into automation. Master the five time fields and
+  always redirect output to a log.

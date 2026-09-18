@@ -1,0 +1,32 @@
+Lesson 23: Networking Tools Intermediate
+══════════════════════════════════════════
+
+OBJECTIVE
+  Inspect the local network stack and speak HTTP with precision.
+
+LEARN
+    ss -tlnp             → listening TCP sockets (sudo to see process)
+    ss -tnp              → established connections
+    host NAME            → DNS lookup
+    dig NAME             → detailed DNS query
+    getent hosts NAME    → resolve using /etc/hosts + DNS
+    cat /etc/hosts       → local name→IP overrides
+    nc -zv HOST PORT     → is a port open?
+    curl -H 'Host: X' URL → send a custom Host header
+
+  Web servers route by the Host header — the same IP can serve
+  different sites for different names. /etc/hosts overrides DNS on
+  this machine.
+
+TASK
+  A service on this machine serves the flag ONLY when asked by its
+  proper name. Discover the listening port, work out the name it wants,
+  make the name resolve on this machine, and fetch the flag.
+
+SUBMIT
+  ctf submit 23 <your_flag>
+
+KEY TAKEAWAY
+  ss shows the sockets; /etc/hosts + Host headers control who you are
+  asking for. Most "it works on the server but not for me" mysteries
+  are DNS or Host-header issues.

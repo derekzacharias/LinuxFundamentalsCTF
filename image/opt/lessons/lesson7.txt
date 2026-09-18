@@ -1,0 +1,29 @@
+Lesson 7: Package Management with apt
+════════════════════════════════════════
+
+OBJECTIVE
+  Install and inspect packages on Ubuntu.
+
+LEARN
+  Software on Ubuntu arrives as packages. apt is the package manager:
+
+    sudo apt update            → refresh the package index
+    sudo apt install NAME      → install a package
+    apt show NAME              → details about a package
+    apt search KEYWORD         → find packages by name/description
+    dpkg -l | grep KEYWORD     → list installed packages
+
+  Try: apt show cowsay — read what it says.
+
+TASK
+  Install the classic package "cowsay", then prove it with the course
+  checker. The checker prints the flag when the package is present.
+
+    lesson7_checker
+
+SUBMIT
+  ctf submit 7 <your_flag>
+
+KEY TAKEAWAY
+  apt update / install / show / search + dpkg -l cover 90% of package
+  management. Everything installed on this box came through a package.

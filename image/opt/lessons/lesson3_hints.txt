@@ -1,0 +1,3 @@
+HINT 1 | Copy the whole template first: cp -a /opt/challenges/lesson3_template ~/project3
+HINT 2 | Concatenate parts in order: cat flag.part1 flag.part2 > final.flag
+HINT 3 | Full chain: mkdir ~/project3/secret && mv ~/project3/flag.part1 ~/project3/flag.part2 ~/project3/secret/ && cat ~/project3/secret/flag.part1 ~/project3/secret/flag.part2 > ~/project3/final.flag && cat ~/project3/final.flag

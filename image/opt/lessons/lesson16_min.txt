@@ -1,0 +1,4 @@
+Lesson 16 — Job control & signals
+  Copy worker.sh to ~/lesson16_worker.sh, run it in background, send
+  SIGUSR1 (kill -USR1), read ~/lesson16_flag.txt.
+Submit: ctf submit 16 FLAG{...}

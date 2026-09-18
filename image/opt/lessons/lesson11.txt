@@ -1,0 +1,30 @@
+Lesson 11: Searching, grep, find, and Disk Usage
+═════════════════════════════════════════════════
+
+OBJECTIVE
+  Locate files and strings efficiently.
+
+LEARN
+    find DIR -type f -name 'PATTERN'   → find files by name
+    find DIR -type d                   → find directories
+    grep -R 'TEXT' DIR                 → search every file's contents
+    grep -l 'TEXT' DIR/*               → just the matching file names
+    df -h                              → disk usage by filesystem
+    du -sh DIR                         → total size of a directory
+    du -sh * | sort -rh | head         → biggest items first
+
+  find searches names; grep searches content. Combine them to hunt
+  anything down.
+
+TASK
+  /opt/data/lesson11 contains several files. Exactly one contains the
+  real flag line — its content marker is REALFLAG, and its file name
+  contains the word "secret".
+  Find the file, read it, and save the flag to ~/lesson11_flag.txt.
+
+SUBMIT
+  ctf submit 11 <your_flag>
+
+KEY TAKEAWAY
+  find + grep -R make you the finder of lost things. df/du keep you
+  aware of space before the disk fills up.

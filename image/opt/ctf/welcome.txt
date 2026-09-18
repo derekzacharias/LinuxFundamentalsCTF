@@ -1,0 +1,29 @@
+ Welcome to the Linux Fundamentals CTF Lab (Ubuntu Edition)
+
+You are in a training environment designed to teach you Linux
+entirely from the command line, using Capture the Flag style
+challenges. Two acts, 24 lessons, one shell.
+
+Act I  — FUNDAMENTALS (lessons 1-12)
+   navigation, files, permissions, text, processes, packages,
+   users, PATH, scripting, search, networking basics
+
+Act II — INTERMEDIATE (lessons 13-24)
+   archives, links, quoting, signals, sed/awk, regex, ACLs,
+   systemd, cron, SSH, network tools, and a capstone breach
+
+How the game works
+  • Each lesson teaches a skill (LEARN), then challenges you (TASK).
+  • Every challenge ends with a flag:  FLAG{...}
+  • Submit flags with:  ctf submit <n> FLAG{...}
+  • Stuck? Hints:  ctf hint <n> 1   (level 2/3 hints cost XP)
+  • Track yourself:  ctf status | ctf score | ctf map
+
+Tips
+  • When stuck, try:  man <command>   or   <command> --help
+  • Keep notes of commands and flags you find.
+  • Skills from earlier lessons will be reused later.
+
+To begin, run:  ctf start   (or  ctf open 1)
+
+Good luck, and have fun learning Linux.

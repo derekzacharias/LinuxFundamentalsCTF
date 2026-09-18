@@ -1,0 +1,40 @@
+Lesson 4: Permissions and Ownership
+═══════════════════════════════════════
+
+OBJECTIVE
+  Learn Unix permissions and the execute bit.
+
+LEARN
+  Every file has permissions for owner, group, and others:
+
+    ls -l FILE
+    -rw-r--r--  1 root root  123 Jan 1 12:00 FILE
+     │  │   │
+     │  │   └─ others: read
+     │  └───── group:  read
+     └──────── owner:  read + write
+
+  r = read, w = write, x = execute.
+
+    chmod u+x FILE   → add execute for the owner
+    chmod 600 FILE   → owner can read+write, nobody else can
+    chmod 644 FILE   → owner rw, everyone else r
+
+  sudo lets you run one command as another user (usually root).
+  sudo whoami will say root.
+
+TASK
+  /opt/flags/lesson4.flag is owned by root and mode 600 — you cannot
+  read it directly. A helper script was left in your home directory,
+  but it is not executable.
+
+    1. Inspect it:      ls -l ~/get_flag4.sh
+    2. Make it runnable: chmod u+x ~/get_flag4.sh
+    3. Run it with sudo to read the protected flag.
+
+SUBMIT
+  ctf submit 4 <your_flag>
+
+KEY TAKEAWAY
+  Permissions protect files; the execute bit controls what can run;
+  sudo is a scalpel — use it deliberately.

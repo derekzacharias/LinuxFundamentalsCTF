@@ -1,0 +1,4 @@
+Lesson 11 — find & grep
+  In /opt/data/lesson11: one file (name contains "secret") holds a
+  REALFLAG line. Save the flag to ~/lesson11_flag.txt.
+Submit: ctf submit 11 FLAG{...}

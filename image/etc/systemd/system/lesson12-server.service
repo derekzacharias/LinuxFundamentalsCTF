@@ -1,0 +1,12 @@
+[Unit]
+Description=Lesson 12 HTTP flag server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/env python3 /usr/local/bin/lesson12_server.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

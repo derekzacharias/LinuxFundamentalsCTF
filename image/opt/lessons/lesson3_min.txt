@@ -1,0 +1,4 @@
+Lesson 3 — File operations
+  Reassemble the split flag from /opt/challenges/lesson3_template
+  into ~/project3/final.flag.
+Submit: ctf submit 3 FLAG{...}

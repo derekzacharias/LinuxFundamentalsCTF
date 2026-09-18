@@ -1,0 +1,3 @@
+HINT 1 | Hidden names start with a dot. Try: ls -a ~
+HINT 2 | The directory is ~/.lesson2 and the file inside is flag.txt
+HINT 3 | cat ~/.lesson2/flag.txt

@@ -1,0 +1,10 @@
+[Unit]
+Description=Lesson 20 flag service (systemd basics)
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/lesson20_flag.sh
+
+[Install]
+WantedBy=multi-user.target

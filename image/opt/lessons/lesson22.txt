@@ -1,0 +1,34 @@
+Lesson 22: SSH and Remote Access
+════════════════════════════════════════════
+
+OBJECTIVE
+  Use SSH keys to reach another account on this machine.
+
+LEARN
+  SSH connects you to a shell on another host (or another user here).
+
+    ssh USER@HOST              → interactive shell
+    ssh USER@HOST 'command'    → run one command remotely
+    ssh-keygen -t ed25519 -f KEYFILE -N ''   → create a keypair
+    ssh -i KEYFILE USER@HOST   → use a specific private key
+    scp FILE USER@HOST:PATH    → copy files over SSH
+    ~/.ssh/authorized_keys     → public keys allowed to log in
+
+  Key auth = your public key goes into the remote account's
+  authorized_keys; your private key stays local and NEVER leaves.
+
+  You have sudo — you can place keys where they need to go, the way an
+  admin would.
+
+TASK
+  A local account named ctf22 exists with a flag in its home directory.
+    1. Generate a keypair for this purpose (~/.ssh/id_ctf22).
+    2. Install your public key into ctf22's authorized_keys (use sudo).
+    3. SSH in and read /home/ctf22/flag.txt.
+
+SUBMIT
+  ctf submit 22 <your_flag>
+
+KEY TAKEAWAY
+  ssh-keygen + authorized_keys + ssh -i is the standard way to move
+  between machines securely. No passwords, no prompts — just keys.

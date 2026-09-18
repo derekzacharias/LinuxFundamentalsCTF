@@ -1,0 +1,3 @@
+HINT 1 | Refresh the index first: sudo apt update
+HINT 2 | Install the package: sudo apt install cowsay
+HINT 3 | Run the checker: lesson7_checker — it prints the flag.

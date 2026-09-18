@@ -1,0 +1,30 @@
+Lesson 8: Users, Groups, and sudo
+══════════════════════════════════════
+
+OBJECTIVE
+  Understand user/group membership and access control.
+
+LEARN
+    whoami          → your username
+    id              → your uid, gid, and ALL group memberships
+    groups          → just the group names
+    ls -l FILE      → shows owner:group of every file
+    newgrp GROUP    → start a shell with a different primary group
+    sudo -l         → what you are allowed to run as root
+
+  A file readable only by a group (mode 640) is readable by group
+  members and nobody else. Membership changes apply to NEW shells —
+  log out/in or use newgrp.
+
+TASK
+  /opt/flags/lesson8.flag is readable only by the group ctf8.
+  Confirm you are a member, inspect the permissions, then read the flag.
+  If you were just added to the group, start a fresh shell or use
+  newgrp ctf8.
+
+SUBMIT
+  ctf submit 8 <your_flag>
+
+KEY TAKEAWAY
+  id and groups tell you what you can touch. Group membership is the
+  polite way to share access — no sudo needed.

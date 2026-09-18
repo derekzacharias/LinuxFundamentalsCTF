@@ -1,0 +1,4 @@
+Lesson 15 — Expansion & quoting
+  A file in /opt/challenges/lesson15 has spaces, $ and * in its name.
+  Read it with proper quoting; save flag to ~/lesson15/flag.txt.
+Submit: ctf submit 15 FLAG{...}

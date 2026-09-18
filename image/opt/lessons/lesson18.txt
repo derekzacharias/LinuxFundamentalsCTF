@@ -1,0 +1,31 @@
+Lesson 18: Regex and grep Mastery
+══════════════════════════════════════════
+
+OBJECTIVE
+  Use regular expressions to pull data out of logs.
+
+LEARN
+    grep -oE 'PAT' FILE   → print ONLY the matched parts (-E = extended)
+    grep -c PAT FILE      → count matching lines
+    grep -n PAT FILE      → show line numbers
+    grep -A2 -B2 PAT FILE → context lines around each match
+    grep -P 'PAT' FILE    → Perl regex (lookarounds etc.)
+
+  Regex atoms:  .  any char   *  zero+   +  one+   ?  optional
+                [abc]  class   [^a]  not-a   ^  anchor start   $  anchor end
+                \d digit  \w word char  {2,5} repeat 2-5
+  Groups capture:  fragment=(\w+)  — grep -oE 'fragment=\w+'
+
+TASK
+  /opt/data/lesson18/access.log is a busy web log. The flag was split
+  into pieces and hidden in request lines that returned status 418,
+  one piece per line, in order. The pieces are labelled: piece=XXXX.
+  Extract them with one grep pipeline and join them into the flag.
+  Save it to ~/lesson18/flag.txt.
+
+SUBMIT
+  ctf submit 18 <your_flag>
+
+KEY TAKEAWAY
+  grep -oE + a good pattern turns gigabytes of logs into the one line
+  you need. Regex is the most transferable skill in computing.

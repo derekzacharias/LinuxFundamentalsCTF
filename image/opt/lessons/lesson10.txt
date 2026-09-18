@@ -1,0 +1,42 @@
+Lesson 10: Bash Scripting Introduction
+══════════════════════════════════════════
+
+OBJECTIVE
+  Write and run a simple Bash script.
+
+LEARN
+  A script is just commands in a file. Make it executable and run it:
+
+    #!/usr/bin/env bash
+    # This line must be the very first line (the shebang).
+
+    NAME="world"              # variable
+    echo "Hello, $NAME"       # use a variable
+    echo "First arg: $1"      # $1 is the first argument
+    if [[ -d "$1" ]]; then    # if ... then ... fi
+      echo "it's a directory"
+    fi
+    for f in *.log; do        # loop over matches
+      echo "log file: $f"
+    done
+
+    chmod +x script.sh        # make executable
+    ./script.sh /some/dir     # run it
+
+  find DIR -name '*.log' | wc -l   counts matching files.
+  grep 'WORD' FILES                finds lines containing WORD.
+
+TASK
+  Write ~/lesson10.sh that:
+    - takes a directory path as $1
+    - counts the .log files in it
+    - if the count is exactly 7, prints the flag line found in
+      those logs
+  Test it against /opt/data/lesson10_logs.
+
+SUBMIT
+  ctf submit 10 <your_flag>
+
+KEY TAKEAWAY
+  Scripts automate anything you can type. Variables, $1, if, and for
+  loops are 90% of scripting.

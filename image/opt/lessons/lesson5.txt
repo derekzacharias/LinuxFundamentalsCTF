@@ -1,0 +1,31 @@
+Lesson 5: Text Viewing, Redirection, and Pipes
+══════════════════════════════════════════════
+
+OBJECTIVE
+  View text, filter with grep, and redirect output.
+
+LEARN
+    cat FILE        → print everything
+    less FILE       → page through (q to quit)
+    head FILE       → first 10 lines
+    tail FILE       → last 10 lines
+    grep PAT FILE   → print lines matching a pattern
+    wc -l FILE      → count lines
+    CMD > FILE      → write CMD's output to FILE (overwrite)
+    CMD >> FILE     → append output to FILE
+    CMD1 | CMD2     → pipe: feed CMD1's output into CMD2
+
+  Pipes chain tools together. Example:
+    cat FILE | grep hello | wc -l
+  counts the lines containing "hello".
+
+TASK
+  /opt/data/lesson5_data.txt contains hundreds of lines.
+  Exactly one line contains the marker word FLAGLINE.
+  Find that line, save it to ~/lesson5_flag.txt, and read it.
+
+SUBMIT
+  ctf submit 5 <your_flag>
+
+KEY TAKEAWAY
+  grep + pipes + redirection let you sift oceans of text in one line.

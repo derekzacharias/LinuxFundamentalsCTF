@@ -1,0 +1,3 @@
+HINT 1 | ssh-keygen -t ed25519 -f ~/.ssh/id_ctf22 -N ''
+HINT 2 | sudo bash -c 'cat ~'"$USER"'/.ssh/id_ctf22.pub >> /home/ctf22/.ssh/authorized_keys'  — or sudo cp the pubkey into place.
+HINT 3 | ssh -i ~/.ssh/id_ctf22 ctf22@localhost 'cat /home/ctf22/flag.txt'

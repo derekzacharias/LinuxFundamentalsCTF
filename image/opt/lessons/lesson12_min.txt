@@ -1,0 +1,4 @@
+Lesson 12 — Networking basics
+  Read /opt/lessons/lesson12_api.txt, then curl the flag from
+  http://localhost:8080.
+Submit: ctf submit 12 FLAG{...}

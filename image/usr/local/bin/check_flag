@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# check_flag — verify a submitted flag against the lesson's SHA-256 hash.
+# Hashes live in /opt/flags/.hashes/lessonN.sha256 (world-readable),
+# so verification works without exposing plaintext flags or requiring root.
+#
+# Usage: check_flag <lesson_number> <FLAG{...}>
+# Exit:  0 = match, 1 = mismatch, 2 = usage error, 3 = unknown lesson
+
+if [[ $# -ne 2 ]]; then
+  echo "Usage: check_flag <lesson_number> <FLAG{...}>" >&2
+  exit 2
+fi
+
+num="$1"
+candidate="$2"
+hash_file="/opt/flags/.hashes/lesson${num}.sha256"
+
+if [[ ! -f "$hash_file" ]]; then
+  echo "Unknown lesson: $num (missing $hash_file)" >&2
+  exit 3
+fi
+
+expected=$(tr -d '[:space:]' < "$hash_file")
+actual=$(printf '%s' "$candidate" | sha256sum | awk '{print $1}')
+
+if [[ "$actual" == "$expected" ]]; then
+  echo "PASS: Lesson $num flag matches."
+  exit 0
+else
+  echo "FAIL: Incorrect flag for lesson $num." >&2
+  exit 1
+fi

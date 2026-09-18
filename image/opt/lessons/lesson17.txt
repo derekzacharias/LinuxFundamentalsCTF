@@ -1,0 +1,33 @@
+Lesson 17: sed and awk
+═════════════════════════════════════════
+
+OBJECTIVE
+  Transform and extract text with sed and awk.
+
+LEARN
+  sed = stream editor. awk = pattern language for columns.
+
+    sed 's/OLD/NEW/' FILE        → replace first OLD on each line
+    sed 's/OLD/NEW/g' FILE       → replace ALL OLD on each line
+    sed -n '5,10p' FILE          → print lines 5-10
+    sed '/pattern/d' FILE        → delete matching lines
+    awk -F, '{print $2}' FILE    → print field 2 (comma-separated)
+    awk '{print $NF}' FILE       → print the LAST field of each line
+    awk 'NR>=2 {print $1}' FILE  → skip the header, print field 1
+    paste -sd ''                 → join lines with no separator
+
+  awk splits each line into fields ($1, $2, ...). -F sets the separator.
+  Chain sed/awk/grep/paste — text obeys.
+
+TASK
+  /opt/data/lesson17/payload.csv holds a "flag column": one character
+  of the flag per row in a known field, plus noise. Read the header to
+  find the right field, extract that column, and join the characters
+  into the flag. Save it to ~/lesson17/flag.txt.
+
+SUBMIT
+  ctf submit 17 <your_flag>
+
+KEY TAKEAWAY
+  grep finds lines, sed rewrites them, awk works in columns. Together
+  they process any text file on the planet.

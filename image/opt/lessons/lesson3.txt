@@ -1,0 +1,33 @@
+Lesson 3: Creating, Moving, and Deleting Files
+══════════════════════════════════════════════
+
+OBJECTIVE
+  Practice creating, copying, moving, and removing files and directories.
+
+LEARN
+    touch FILE        → create an empty file (or update its timestamp)
+    mkdir DIR         → create a directory
+    cp SRC DST        → copy a file
+    cp -a SRC DST     → copy a directory tree (archive mode)
+    mv SRC DST        → move or rename
+    rm FILE           → delete a file (there is NO undo)
+    rm -r DIR         → delete a directory and everything in it
+    cat A B > C       → concatenate A and B into C  (redirection: >)
+
+  Globs match many files at once:  *.txt  means every name ending in .txt.
+
+TASK
+  A broken flag was split in two and left in /opt/challenges/lesson3_template.
+  Reassemble it in your home directory:
+    - Copy the template directory to ~/project3
+    - Create a directory named secret inside it and move both
+      flag parts there
+    - Concatenate the parts in the correct order into final.flag
+    - Read final.flag to get the flag
+
+SUBMIT
+  ctf submit 3 <your_flag>
+
+KEY TAKEAWAY
+  mkdir, cp, mv, cat with redirection — file surgery is a core Linux skill.
+  Always double-check before rm.

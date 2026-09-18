@@ -1,0 +1,5 @@
+Lesson 14 — Links
+  Trace the symlink chain at /opt/challenges/lesson14/chain_start to the
+  flag; save it to ~/lesson14_flag.txt. Hard-link source.txt to
+  ~/lesson14_backup.
+Submit: ctf submit 14 FLAG{...}

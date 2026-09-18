@@ -1,0 +1,16 @@
+Lesson 12 API Notes
+
+Endpoint:  GET /flag
+Host:      http://localhost:8080
+
+Query parameters:
+- token (required): when token=lesson12 the server returns the flag.
+
+Example:
+  curl "http://localhost:8080/flag?token=lesson12"
+
+Logs:
+- Access logs are written to /var/log/lesson12_access.log
+
+Expected response:
+  FLAG{...}

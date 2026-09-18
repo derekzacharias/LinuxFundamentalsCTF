@@ -1,0 +1,30 @@
+Lesson 12: Networking Basics and Logs
+═════════════════════════════════════════
+
+OBJECTIVE
+  Use basic networking tools and inspect logs.
+
+LEARN
+    ip a          → your network interfaces and addresses
+    hostname -I   → just your IP addresses
+    ping HOST     → is a host reachable? (Ctrl-C to stop)
+    ss -tlnp      → which ports are listening (sudo shows programs)
+    curl URL      → fetch a URL and print the response
+    curl -i URL   → include response headers
+
+  Services listen on ports. localhost (127.0.0.1) is your own machine.
+  When a service says "GET /flag?token=..." it is an HTTP API you can
+  talk to with curl.
+
+TASK
+  A small server listens on http://localhost:8080. Read the API notes
+  for lesson 12 to learn how to ask it for the flag, then ask it.
+
+    cat /opt/lessons/lesson12_api.txt
+
+SUBMIT
+  ctf submit 12 <your_flag>
+
+KEY TAKEAWAY
+  ip a, ss, and curl are your eyes on the network. Logs
+  (/var/log/lesson12_access.log) record what happened — read them.

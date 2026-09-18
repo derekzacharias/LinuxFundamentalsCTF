@@ -1,0 +1,4 @@
+Lesson 10 — Bash scripting I
+  Write ~/lesson10.sh: count .log files in $1; if 7, print the flag
+  line from the logs. Test: ~/lesson10.sh /opt/data/lesson10_logs
+Submit: ctf submit 10 FLAG{...}

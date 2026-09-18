@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Back-compat wrapper: hint <n> [lvl] -> ctf hint
+set -euo pipefail
+exec ctf hint "$@"

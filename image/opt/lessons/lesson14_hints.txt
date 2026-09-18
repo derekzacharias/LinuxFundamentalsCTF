@@ -1,0 +1,3 @@
+HINT 1 | Resolve the chain: readlink -f /opt/challenges/lesson14/chain_start
+HINT 2 | Read the flag and save it: cat "$(readlink -f /opt/challenges/lesson14/chain_start)" > ~/lesson14_flag.txt
+HINT 3 | cp /opt/challenges/lesson14/source.txt ~/source.txt && ln ~/source.txt ~/lesson14_backup — verify with ls -li.

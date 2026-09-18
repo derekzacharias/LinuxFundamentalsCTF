@@ -1,0 +1,35 @@
+Lesson 9: Environment, PATH, and Shell Basics
+═════════════════════════════════════════════
+
+OBJECTIVE
+  Use environment variables and configure PATH.
+
+LEARN
+    env              → show all environment variables
+    printenv HOME    → show one variable
+    echo $HOME       → shell expansion of a variable
+    echo $PATH       → directories searched for commands
+
+  When you type a command, the shell looks for it in every directory
+  listed in PATH, in order. Directories not in PATH are invisible to
+  it — which is why you sometimes type ./script instead of script.
+
+  ~/.bashrc runs every time you open an interactive shell. Add lines
+  there to configure your environment permanently:
+
+    export PATH="/opt/tools:$PATH"
+
+  Reload without logging out:  source ~/.bashrc
+
+TASK
+  A script at /opt/tools/lesson9_flag.sh prints the flag — but
+  /opt/tools is not in your PATH, so the shell cannot find it by name.
+  Add /opt/tools to PATH permanently via ~/.bashrc, reload, then run
+  the command by its short name.
+
+SUBMIT
+  ctf submit 9 <your_flag>
+
+KEY TAKEAWAY
+  PATH is the map your shell uses to find programs. Environment
+  variables configure everything — env and echo $VAR show you the state.

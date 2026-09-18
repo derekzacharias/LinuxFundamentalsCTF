@@ -1,0 +1,3 @@
+HINT 1 | Look at the permissions: ls -l ~/get_flag4.sh
+HINT 2 | Grant the owner execute permission: chmod u+x ~/get_flag4.sh
+HINT 3 | Run it as root: sudo ~/get_flag4.sh

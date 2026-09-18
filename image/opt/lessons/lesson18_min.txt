@@ -1,0 +1,5 @@
+Lesson 18 — Regex & grep
+  In /opt/data/lesson18/access.log, status-418 lines hold flag pieces
+  (piece=XXXX). grep -oE them out in order, join, save to
+  ~/lesson18/flag.txt.
+Submit: ctf submit 18 FLAG{...}

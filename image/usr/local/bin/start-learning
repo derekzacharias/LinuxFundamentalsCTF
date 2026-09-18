@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Back-compat wrapper for start-learning -> start-game
+set -euo pipefail
+exec start-game "$@"

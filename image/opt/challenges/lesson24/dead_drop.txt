@@ -1,0 +1,3 @@
+The pieces are hidden in pieces.csv — you will need to chmod it first (it
+belongs to root, so use sudo; only an owner or root may change permissions).
+The flag characters live in column 4. (They are rot13'd, of course.)

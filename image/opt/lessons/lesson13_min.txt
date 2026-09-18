@@ -1,0 +1,4 @@
+Lesson 13 — Archives
+  Nested archives in /opt/challenges/lesson13 hide a flag file.
+  Extract into ~/lesson13 and read it.
+Submit: ctf submit 13 FLAG{...}

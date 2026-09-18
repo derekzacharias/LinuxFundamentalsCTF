@@ -1,0 +1,12 @@
+[Unit]
+Description=Lesson 6 Logger (writes lesson6 log with flag)
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/lesson6-logger.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

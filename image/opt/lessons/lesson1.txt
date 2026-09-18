@@ -1,0 +1,34 @@
+Lesson 1: Orientation and First Flag
+═════════════════════════════════════
+
+OBJECTIVE
+  Get comfortable with the shell prompt, help system, and reading files.
+
+LEARN
+  The shell is a conversation: you type a command, it answers.
+  Practice these — type each one and read what comes back:
+
+    whoami      → who are you?
+    hostname    → which machine are you on?
+    pwd         → print working directory (where am I?)
+    ls          → list files in the current directory
+    cat FILE    → print a file's contents
+    man CMD     → the manual for any command (q to quit)
+    CMD --help  → short built-in help
+
+  Tip: man ls and ls --help are worth reading now.
+
+TASK
+  Flags for the course live in /opt/flags.
+  Find the flag file for lesson 1, read it, and submit it:
+
+    ctf submit 1 FLAG{...}
+
+  Steps are deliberately not given — the LEARN section is all you need.
+
+SUBMIT
+  ctf submit 1 <your_flag>
+
+KEY TAKEAWAY
+  whoami, hostname, pwd, ls, cat, man — your first six tools.
+  You will reuse all of them in every later lesson.

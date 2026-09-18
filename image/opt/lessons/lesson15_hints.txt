@@ -1,0 +1,3 @@
+HINT 1 | ls -la /opt/challenges/lesson15 — note the exact filename.
+HINT 2 | Type: cat '/opt/challenges/lesson15/my ' then press TAB to complete the quoted name.
+HINT 3 | cat '/opt/challenges/lesson15/my $plans *.txt' > ~/lesson15/flag.txt  (single quotes make it literal)

@@ -1,0 +1,3 @@
+HINT 1 | Append to ~/.bashrc: export PATH="/opt/tools:$PATH"
+HINT 2 | Reload: source ~/.bashrc
+HINT 3 | Run: lesson9_flag

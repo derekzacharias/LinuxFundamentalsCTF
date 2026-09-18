@@ -1,0 +1,174 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# validate_lesson — runtime skill checks for every lesson.
+# Runs after a correct flag submission (and standalone: validate_lesson <n>).
+# Exit 0 = all checks pass, 1 = at least one check failed.
+#
+# Checks must be executable by a non-root learner in a fresh shell
+# (lab user has passwordless sudo for the lessons that need it).
+
+num=${1:-}
+[[ -n "$num" ]] || { echo "Usage: validate_lesson <lesson_number>" >&2; exit 2; }
+[[ "$num" =~ ^[0-9]+$ ]] || { echo "Invalid lesson number: $num" >&2; exit 2; }
+
+ok()   { echo "  OK: $*"; }
+fail() { echo "  FAIL: $*" >&2; return 1; }
+need_file() { [[ -f $1 ]] || fail "$1 not found"; }
+
+has_flag() { # has_flag <file> <flag>  (flag may appear as substring)
+  grep -qF "$2" "$1" 2>/dev/null
+}
+
+case "$num" in
+  1)
+    need_file /opt/flags/lesson1.flag
+    has_flag /opt/flags/lesson1.flag 'FLAG{lesson_01_welcome_to_linux}' || fail "lesson1 flag content unexpected"
+    ok "orientation complete"
+    ;;
+  2)
+    need_file "$HOME/.lesson2/flag.txt"
+    has_flag "$HOME/.lesson2/flag.txt" 'FLAG{lesson_02_paths_master}' || fail "flag content unexpected in ~/.lesson2/flag.txt"
+    ok "hidden directory located"
+    ;;
+  3)
+    need_file "$HOME/project3/final.flag"
+    has_flag "$HOME/project3/final.flag" 'FLAG{lesson_03_file_ops}' || fail "final.flag content mismatch"
+    [[ -d "$HOME/project3/secret" ]] || fail "~/project3/secret not created"
+    ok "file operations complete"
+    ;;
+  4)
+    [[ -x "$HOME/get_flag4.sh" ]] || fail "~/get_flag4.sh is not executable (chmod u+x)"
+    out=$(sudo "$HOME/get_flag4.sh" 2>/dev/null || true)
+    [[ "$out" == 'FLAG{lesson_04_permissions_ftw}' ]] || fail "sudo ~/get_flag4.sh did not print the flag"
+    ok "permissions exercise complete"
+    ;;
+  5)
+    need_file "$HOME/lesson5_flag.txt"
+    has_flag "$HOME/lesson5_flag.txt" 'FLAG{lesson_05_pipe_master}' || fail "~/lesson5_flag.txt content mismatch"
+    ok "pipeline produced and saved the flag"
+    ;;
+  6)
+    need_file /var/log/lesson6.log
+    has_flag /var/log/lesson6.log 'FLAG{lesson_06_ps_master}' || fail "flag not observed in /var/log/lesson6.log"
+    ok "found flag in the service log"
+    ;;
+  7)
+    /usr/local/bin/lesson7_checker >/dev/null 2>&1 || fail "required package not installed (try: sudo apt install cowsay)"
+    ok "package installed"
+    ;;
+  8)
+    id -nG | grep -qw ctf8 || fail "user not in ctf8 group (new shell or 'newgrp ctf8')"
+    [[ -r /opt/flags/lesson8.flag ]] || fail "/opt/flags/lesson8.flag not readable"
+    has_flag /opt/flags/lesson8.flag 'FLAG{lesson_08_group_power}' || fail "lesson8 flag content unexpected"
+    ok "group-based access works"
+    ;;
+  9)
+    grep -q 'PATH=.*opt/tools' "$HOME/.bashrc" 2>/dev/null || fail "~/.bashrc does not persist the PATH change"
+    login_path=$(bash -lic 'echo $PATH' 2>/dev/null)
+    echo "$login_path" | grep -q "/opt/tools" || fail "/opt/tools not in login PATH (add to ~/.bashrc and re-login)"
+    out=$(bash -lic 'lesson9_flag' 2>/dev/null || true)
+    [[ "$out" == 'FLAG{lesson_09_path_master}' ]] || fail "lesson9_flag did not print expected flag"
+    ok "PATH configured and tool reachable"
+    ;;
+  10)
+    [[ -x "$HOME/lesson10.sh" ]] || fail "~/lesson10.sh missing or not executable"
+    out=$("$HOME/lesson10.sh" /opt/data/lesson10_logs 2>/dev/null || true)
+    echo "$out" | grep -q 'FLAG{lesson_10_script_novice}' || fail "script did not output the flag"
+    ok "script executed and produced the flag"
+    ;;
+  11)
+    has_flag /opt/data/lesson11/secret_info.txt 'FLAG{lesson_11_search_wizard}' || fail "REALFLAG missing from lesson11 data"
+    need_file "$HOME/lesson11_flag.txt"
+    has_flag "$HOME/lesson11_flag.txt" 'FLAG{lesson_11_search_wizard}' || fail "~/lesson11_flag.txt content mismatch"
+    ok "search tools located and saved the flag"
+    ;;
+  12)
+    resp=$(curl -fsS 'http://127.0.0.1:8080/flag?token=lesson12' 2>/dev/null || true)
+    [[ "$resp" == 'FLAG{lesson_12_network_ready}' ]] || fail "HTTP flag endpoint not reachable or wrong token"
+    ok "HTTP query returned the flag"
+    ;;
+  13)
+    found=$(find "$HOME/lesson13" -name 'flag.txt' -exec grep -l 'FLAG{lesson_13_archive_archaeologist}' {} + 2>/dev/null || true)
+    [[ -n "$found" ]] || fail "no extracted flag.txt containing the flag under ~/lesson13"
+    ok "nested archives extracted"
+    ;;
+  14)
+    need_file "$HOME/lesson14_backup"
+    need_file "$HOME/source.txt"
+    src_inode=$(stat -c %i "$HOME/source.txt")
+    link_inode=$(stat -c %i "$HOME/lesson14_backup")
+    [[ "$src_inode" == "$link_inode" ]] || fail "~/lesson14_backup is not a hard link to ~/source.txt (same inode)"
+    target=$(readlink -f /opt/challenges/lesson14/chain_start 2>/dev/null || true)
+    [[ "$target" == "/opt/flags/lesson14.flag" ]] || fail "symlink chain does not resolve to the flag"
+    has_flag "$HOME/lesson14_flag.txt" 'FLAG{lesson_14_link_master}' || fail "~/lesson14_flag.txt content mismatch"
+    ok "links understood end to end"
+    ;;
+  15)
+    need_file "$HOME/lesson15/flag.txt"
+    has_flag "$HOME/lesson15/flag.txt" 'FLAG{lesson_15_quote_unquote}' || fail "~/lesson15/flag.txt content mismatch"
+    ok "quoting and expansion mastered"
+    ;;
+  16)
+    need_file "$HOME/lesson16_flag.txt"
+    has_flag "$HOME/lesson16_flag.txt" 'FLAG{lesson_16_signal_sergeant}' || fail "~/lesson16_flag.txt content mismatch"
+    ok "background job signaled correctly"
+    ;;
+  17)
+    need_file "$HOME/lesson17/flag.txt"
+    has_flag "$HOME/lesson17/flag.txt" 'FLAG{lesson_17_stream_sculptor}' || fail "~/lesson17/flag.txt content mismatch"
+    ok "sed/awk pipeline produced the flag"
+    ;;
+  18)
+    need_file "$HOME/lesson18/flag.txt"
+    has_flag "$HOME/lesson18/flag.txt" 'FLAG{lesson_18_regex_raider}' || fail "~/lesson18/flag.txt content mismatch"
+    ok "regex extraction complete"
+    ;;
+  19)
+    need_file "$HOME/lesson19/shared_notes.txt"
+    shared_note=$(ls /opt/challenges/lesson19/shared/notes_* 2>/dev/null | head -1 || true)
+    [[ -n "$shared_note" ]] || fail "no notes_* file created in the shared setgid dir"
+    g=$(stat -c %G "$shared_note")
+    [[ "$g" == "ctf19" ]] || fail "shared-dir file group is $g, expected ctf19 (setgid inheritance)"
+    [[ -r /opt/flags/lesson19.flag ]] || fail "/opt/flags/lesson19.flag not readable (group or ACL)"
+    has_flag /opt/flags/lesson19.flag 'FLAG{lesson_19_acl_ace}' || fail "lesson19 flag content unexpected"
+    ok "ACL and setgid understood"
+    ;;
+  20)
+    sys_active=$(systemctl is-active lesson20.service 2>/dev/null || sudo -n systemctl is-active lesson20.service 2>/dev/null || true)
+    [[ "$sys_active" == "active" ]] || fail "lesson20.service is not active (sudo systemctl start lesson20)"
+    sys_enabled=$(systemctl is-enabled lesson20.service 2>/dev/null || sudo -n systemctl is-enabled lesson20.service 2>/dev/null || true)
+    [[ "$sys_enabled" == "enabled" ]] || fail "lesson20.service is not enabled (sudo systemctl enable lesson20)"
+    jlog=$(journalctl -u lesson20 --no-pager -n 100 2>/dev/null || sudo -n journalctl -u lesson20 --no-pager -n 100 2>/dev/null || true)
+    echo "$jlog" | grep -q 'FLAG{lesson_20_systemd_savvy}' \
+      || fail "flag not found in journalctl -u lesson20"
+    ok "systemd service started, enabled, and flag found in journal"
+    ;;
+  21)
+    crontab -l 2>/dev/null | grep -q 'lesson21_worker' || fail "crontab has no lesson21_worker entry"
+    out=$(/usr/local/bin/lesson21_checker 2>/dev/null || true)
+    echo "$out" | grep -q 'FLAG{lesson_21_cron_crusader}' || fail "lesson21_checker did not print the flag"
+    ok "cron entry installed and worker correct"
+    ;;
+  22)
+    [[ -f "$HOME/.ssh/id_ctf22" ]] || fail "~/.ssh/id_ctf22 keypair missing (ssh-keygen)"
+    out=$(ssh -i "$HOME/.ssh/id_ctf22" -o BatchMode=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=5 ctf22@localhost 'cat /home/ctf22/flag.txt' 2>/dev/null || true)
+    [[ "$out" == 'FLAG{lesson_22_ssh_commander}' ]] || fail "ssh ctf22@localhost did not return the flag"
+    ok "key-based SSH works"
+    ;;
+  23)
+    grep -q 'flag.service.local' /etc/hosts || fail "flag.service.local missing from /etc/hosts"
+    resp=$(curl -fsS -H 'Host: flag.service.local' http://127.0.0.1:9099/ 2>/dev/null || true)
+    [[ "$resp" == 'FLAG{lesson_23_net_operative}' ]] || fail "flag.service.local did not return the flag"
+    ok "networking tools complete"
+    ;;
+  24)
+    need_file "$HOME/lesson24/flag.txt"
+    has_flag "$HOME/lesson24/flag.txt" 'FLAG{lesson_24_breach_contained}' || fail "~/lesson24/flag.txt content mismatch"
+    ok "capstone complete — course finished!"
+    ;;
+  *)
+    echo "No validator for lesson $num" >&2
+    exit 0
+    ;;
+esac

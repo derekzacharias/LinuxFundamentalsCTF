@@ -1,0 +1,8 @@
+noise: lorem ipsum dolor sit amet
+INFO starting pipeline step 1
+DEBUG user=student action=read
+This is just a line of text
+FLAGLINE FLAG{lesson_05_pipe_master}
+another unrelated line
+end of file
+

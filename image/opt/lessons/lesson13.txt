@@ -1,0 +1,35 @@
+Lesson 13: Archives and Compression
+═══════════════════════════════════════
+
+OBJECTIVE
+  Create, inspect, and extract archives.
+
+LEARN
+  Archives bundle many files into one; compression shrinks them.
+
+    tar -cf bundle.tar DIR       → create an archive
+    tar -tf bundle.tar           → list contents WITHOUT extracting
+    tar -xf bundle.tar           → extract
+    tar -xzf bundle.tar.gz       → extract a gzip-compressed tar
+    gzip FILE / gunzip FILE.gz   → compress / decompress single files
+    zip -r bundle.zip DIR        → create a zip
+    unzip bundle.zip             → extract a zip
+    file ARCHIVE                 → identify what kind of file it is
+
+  Golden rules:
+    - Always list first: tar -tf (or unzip -l). Extract only what you trust.
+    - tar -xzf = extract + unzip; a .tgz is the same as .tar.gz.
+    - Archives can contain archives. Depth hides things.
+
+TASK
+  A treasure was buried under /opt/challenges/lesson13 — an archive
+  containing archives containing... something. The final payload is a
+  flag file. Extract carefully into ~/lesson13 and find it.
+  (file and tar -tf are your friends at each layer.)
+
+SUBMIT
+  ctf submit 13 <your_flag>
+
+KEY TAKEAWAY
+  Inspect before you extract. tar -tf, unzip -l, and file tell you what
+  you are dealing with at every layer.

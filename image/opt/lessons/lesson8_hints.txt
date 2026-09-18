@@ -1,0 +1,3 @@
+HINT 1 | Check your memberships: id
+HINT 2 | If ctf8 is missing from your current shell: newgrp ctf8
+HINT 3 | Then simply: cat /opt/flags/lesson8.flag

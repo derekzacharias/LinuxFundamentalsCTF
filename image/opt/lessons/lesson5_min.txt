@@ -1,0 +1,4 @@
+Lesson 5 — Text & pipes
+  Find the FLAGLINE line in /opt/data/lesson5_data.txt,
+  save it to ~/lesson5_flag.txt.
+Submit: ctf submit 5 FLAG{...}

@@ -1,0 +1,5 @@
+Lesson 21 — cron
+  Write ~/lesson21_worker.sh (decodes /opt/data/lesson21/seed.txt),
+  add a cron entry running it every minute (log to
+  /var/spool/lesson21/submissions.log), then run lesson21_checker.
+Submit: ctf submit 21 FLAG{...}

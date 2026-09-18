@@ -1,0 +1,34 @@
+Lesson 19: Users, Permissions, and ACLs Deep Dive
+═════════════════════════════════════════════════
+
+OBJECTIVE
+  Go beyond rwx: umask, setgid, sticky bit, and ACLs.
+
+LEARN
+    umask               → default permission mask for NEW files (022
+                          means new files are 644, dirs 755)
+    chown USER:GROUP F  → change owner and group
+    chmod g+s DIR       → setgid: new files in DIR inherit DIR's group
+    chmod +t DIR        → sticky bit: only owners delete their files
+                          (see /tmp: drwxrwxrwt)
+    getfacl FILE        → view extended permissions (ACL)
+    setfacl -m u:USER:rX FILE → grant USER read access via ACL
+    ls -l FILE          → a "+" in the mode (e.g. -rw-r--r--+) means
+                          an ACL is present
+
+  ACLs grant permissions to specific users/groups beyond owner/group/
+  others. The setgid bit makes collaboration safe in shared dirs.
+
+TASK
+  /opt/challenges/lesson19/shared is a setgid, group-writable directory
+  (group ctf19). Write a file there and confirm it inherits group ctf19.
+  Then use the access you already have to read /opt/flags/lesson19.flag.
+  Save your username in ~/lesson19/shared_notes.txt too (mkdir ~/lesson19 first).
+
+SUBMIT
+  ctf submit 19 <your_flag>
+
+KEY TAKEAWAY
+  umask predicts permission of new files; setgid keeps shared dirs
+  consistent; getfacl/setfacl grant surgical access. The "+" in ls -l
+  tells you an ACL is in play.

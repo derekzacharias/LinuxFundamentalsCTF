@@ -1,0 +1,3 @@
+HINT 1 | Read the header: head -1 /opt/data/lesson17/payload.csv — the flag is in the column named "fragment".
+HINT 2 | awk -F, 'NR>1 {print $3}' /opt/data/lesson17/payload.csv  (column 3)
+HINT 3 | awk -F, 'NR>1 {print $3}' /opt/data/lesson17/payload.csv | paste -sd '' > ~/lesson17/flag.txt

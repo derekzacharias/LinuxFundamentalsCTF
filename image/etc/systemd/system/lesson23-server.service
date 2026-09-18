@@ -1,0 +1,10 @@
+[Unit]
+Description=Lesson 23 HTTP flag server (Host-header challenge)
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/env python3 /usr/local/bin/lesson23_server.py
+
+[Install]
+WantedBy=multi-user.target

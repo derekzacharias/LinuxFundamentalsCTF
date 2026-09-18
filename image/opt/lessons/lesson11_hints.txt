@@ -1,0 +1,3 @@
+HINT 1 | List candidate files: find /opt/data/lesson11 -type f -name '*secret*'
+HINT 2 | Search contents: grep -R REALFLAG /opt/data/lesson11
+HINT 3 | Save it: grep -R REALFLAG /opt/data/lesson11 > ~/lesson11_flag.txt

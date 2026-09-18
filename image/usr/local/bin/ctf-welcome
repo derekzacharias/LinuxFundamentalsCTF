@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Welcome banner for the Linux Fundamentals CTF.
+set -euo pipefail
+cat /opt/ctf/welcome.txt

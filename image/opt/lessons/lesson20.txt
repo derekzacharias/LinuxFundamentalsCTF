@@ -1,0 +1,35 @@
+Lesson 20: systemd
+═════════════════════════════════════════════
+
+OBJECTIVE
+  Manage services with systemd and read their journals.
+
+LEARN
+  systemd is the init system: it starts, stops, and supervises services.
+
+    systemctl status NAME        → state, recent log lines
+    systemctl start NAME         → start now
+    systemctl stop NAME          → stop now
+    systemctl enable NAME        → start automatically at boot
+    systemctl disable NAME       → stop starting at boot
+    systemctl is-active NAME     → active?
+    systemctl is-enabled NAME    → enabled?
+    systemctl cat NAME           → show the unit file
+    journalctl -u NAME           → the service's log (the journal)
+    journalctl -u NAME -f        → follow it live
+    journalctl -n 50 --no-pager  → last 50 lines
+
+  Units live in /etc/systemd/system (and /lib/systemd/system).
+  "Active" ≠ "enabled": active = running now, enabled = starts at boot.
+
+TASK
+  A unit called lesson20.service exists on this machine but is NOT
+  running. Inspect it, start it, enable it, and read the flag from its
+  journal.
+
+SUBMIT
+  ctf submit 20 <your_flag>
+
+KEY TAKEAWAY
+  systemctl status/start/enable + journalctl cover day-to-day service
+  work. If a service misbehaves, its journal usually says why.

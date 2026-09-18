@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Back-compat wrapper: the 'lessons' CLI now delegates to 'ctf'.
+set -euo pipefail
+usage() {
+  cat <<'EOS'
+Usage: lessons [list|start|open <n>|next|<n>]
+Legacy alias for: ctf
+EOS
+}
+cmd=${1:-}
+case $cmd in
+  menu) exec ctf open 1 ;;
+  "") usage ;;
+  *) exec ctf "$@" ;;
+esac

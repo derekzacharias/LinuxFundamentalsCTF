@@ -1,0 +1,3 @@
+HINT 1 | Stage 1 is not what it claims to be: file /opt/challenges/lesson24/stage1
+HINT 2 | Stage 2 is an archive. Stage 3 hides a pointer in logs. Stage 4 is a setgid/perms puzzle.
+HINT 3 | Full chain: base64 -d stage1 → tar -xzf → grep -R 'stage' → readlink + sudo chmod → sed/awk extract → rot13 via tr → final flag.

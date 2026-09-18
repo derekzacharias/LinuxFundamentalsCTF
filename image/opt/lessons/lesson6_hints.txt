@@ -1,0 +1,3 @@
+HINT 1 | Find the process: ps aux | grep lesson6
+HINT 2 | The log is /var/log/lesson6.log — watch it with: tail -f /var/log/lesson6.log
+HINT 3 | The flag line appears about every 10 seconds. Wait for it, then submit.

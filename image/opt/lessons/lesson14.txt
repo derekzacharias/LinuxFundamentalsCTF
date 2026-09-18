@@ -1,0 +1,36 @@
+Lesson 14: Symbolic and Hard Links
+══════════════════════════════════════
+
+OBJECTIVE
+  Understand symlinks, hard links, and inodes.
+
+LEARN
+  Every file's real identity is its inode. Links give files more names.
+
+    ln -s TARGET LINK   → symbolic link (a pointer; can break if
+                          the target moves)
+    ln TARGET LINK      → hard link (a second name for the SAME inode)
+    readlink LINK       → what does a symlink point to?
+    readlink -f LINK    → fully resolve a chain of symlinks
+    stat FILE           → inode number, link count, sizes, times
+    ls -li              → list with inode numbers (see hard links!)
+
+  A symlink is a separate tiny file that stores a path. A hard link is
+  not a copy — two names, one inode, one file. Deleting one name does
+  not delete the other.
+
+TASK
+  In /opt/challenges/lesson14 there is a chain of symlinks that ends at
+  the lesson flag, plus a real file called source.txt.
+    1. Trace the chain and read the flag; save it to ~/lesson14_flag.txt.
+    2. Copy source.txt to your home, then create a HARD link named
+       ~/lesson14_backup to your copy. (Check with ls -li that both
+       share the same inode — the kernel only allows hard-linking
+       files you can write.)
+
+SUBMIT
+  ctf submit 14 <your_flag>
+
+KEY TAKEAWAY
+  readlink -f unwinds chains; stat and ls -li expose inodes. Hard links
+  mean "same file, second name" — backups that cost zero bytes.

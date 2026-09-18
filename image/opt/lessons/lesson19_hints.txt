@@ -1,0 +1,3 @@
+HINT 1 | Inspect the shared dir: ls -ld /opt/challenges/lesson19/shared — note the s in the group bits.
+HINT 2 | whoami > /opt/challenges/lesson19/shared/notes_<yourname> && ls -l the file — group should be ctf19.
+HINT 3 | mkdir -p ~/lesson19 && whoami > ~/lesson19/shared_notes.txt && cat /opt/flags/lesson19.flag

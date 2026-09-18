@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Back-compat wrapper: submit_flag <n> FLAG -> ctf submit
+set -euo pipefail
+exec ctf submit "$@"

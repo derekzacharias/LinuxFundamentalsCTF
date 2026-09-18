@@ -1,0 +1,35 @@
+Lesson 15: Shell Expansion and Quoting
+══════════════════════════════════════════
+
+OBJECTIVE
+  Master globs, expansions, and quoting so filenames never defeat you.
+
+LEARN
+  The shell rewrites your command line BEFORE it runs. Expansions:
+
+    *.txt            → glob: matches filenames
+    {a,b,c}          → brace expansion: a b c
+    ~                → your home directory
+    $HOME / $(cmd)   → variable / command substitution
+
+  Quoting controls expansion:
+
+    'single quotes'   → everything literal
+    "double quotes"   → literal except $, `, \
+    \x                → escape ONE character
+    --                → end of options (protects from -leading names)
+
+  Filenames with spaces, $, *, or quotes break naive commands.
+  ls 'file name.txt' works; ls file name.txt does not.
+
+TASK
+  In /opt/challenges/lesson15 a file with a hostile name holds the flag.
+  Its name contains spaces, a $, and a *. List the directory, then read
+  the file using correct quoting — and save the flag to ~/lesson15/flag.txt.
+
+SUBMIT
+  ctf submit 15 <your_flag>
+
+KEY TAKEAWAY
+  When a filename has spaces or $ or *, quote it. Tab-completion does
+  the quoting for you — press TAB and trust it.

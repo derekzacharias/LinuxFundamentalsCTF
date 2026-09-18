@@ -1,0 +1,33 @@
+Lesson 16: Job Control and Signals
+═════════════════════════════════════════
+
+OBJECTIVE
+  Run jobs in the background and control processes with signals.
+
+LEARN
+    CMD &              → run in the background
+    jobs               → list background jobs of this shell
+    bg %1 / fg %1      → continue job 1 in background / foreground
+    Ctrl-Z             → suspend the foreground job
+    ps -o pid,stat,cmd → process states (S=sleep, R=run, T=stopped)
+    kill PID           → send SIGTERM (polite "please stop")
+    kill -9 PID        → SIGKILL (unstoppable)
+    kill -l            → list all signals
+    kill -USR1 PID     → send SIGUSR1 (user-defined signal)
+
+  Processes can catch signals with trap and react. Many daemons reload
+  their config on SIGHUP — that is how you "talk" to running services.
+
+TASK
+  Copy /opt/challenges/lesson16/worker.sh to ~/lesson16_worker.sh,
+  make it executable, and run it in the background. The worker waits
+  for SIGUSR1; when it receives it, it writes the flag to
+  ~/lesson16_flag.txt. Send the signal, then read the flag.
+
+SUBMIT
+  ctf submit 16 <your_flag>
+
+KEY TAKEAWAY
+  Background jobs + kill give you control of running code. trap lets a
+  program respond to you mid-flight. Signals are the language of
+  process control.

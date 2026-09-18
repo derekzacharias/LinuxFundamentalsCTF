@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+if dpkg -s cowsay >/dev/null 2>&1; then
+  echo "FLAG{lesson_07_apt_pro}"
+else
+  echo "Required package not detected. Try: sudo apt update && sudo apt install cowsay" >&2
+  exit 1
+fi
+
