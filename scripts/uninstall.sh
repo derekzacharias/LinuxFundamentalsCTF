@@ -22,6 +22,6 @@ rm -rf /var/spool/lesson21 /var/log/lesson6.log /var/log/lesson12_access.log
 rm -f /etc/motd
 
 if id ctf22 >/dev/null 2>&1; then userdel -r ctf22 2>/dev/null || true; fi
-for g in ctf8 ctf14 ctf19 ctf21; do groupdel "$g" 2>/dev/null || true; done
+for g in ctf8 ctf19 ctf21; do groupdel "$g" 2>/dev/null || true; done
 
 echo "[+] Uninstalled. (Per-user files in ~ — .lesson2, project3, get_flag4.sh, ~/.ctf_state — are left in place.)"

@@ -50,5 +50,5 @@ See `docs/curriculum.md` for per-lesson learning objectives.
 | Iteration | Scope | Outcome |
 |-----------|-------|---------|
 | 1 | Rebuild: docs, 24 lessons, tooling, validators, data, install, tests, CI | Built; awaiting review |
-| 2 | Independent review + first end-to-end lab run; fix findings | (to be filled) |
+| 2 | Independent review + live lab run: fixed 19 findings (hard-link kernel policy, systemd-in-container, validator fidelity, XP/reset exploits, hint tiering, data realism, CI robustness) | all 24 lessons PASS in lab container |
 | 3 | Second independent review + final verification; polish; push | (to be filled) |

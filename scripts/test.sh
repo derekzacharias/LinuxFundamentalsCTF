@@ -55,7 +55,7 @@ lab() {
 
     if ! sudo -H -u "$LAB_USER" /usr/local/bin/validate_lesson "$n" >/dev/null 2>&1; then
       echo "VALIDATE FAILED — details:"
-      sudo -H -u "$LAB_USER" /usr/local/bin/validate_lesson "$n" 2>&1 | sed 's/^/    /'
+      sudo -H -u "$LAB_USER" /usr/local/bin/validate_lesson "$n" 2>&1 | sed 's/^/    /' || true
       fails=$((fails+1))
       continue
     fi

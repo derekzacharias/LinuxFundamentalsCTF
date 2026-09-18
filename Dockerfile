@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
       sudo systemd systemd-sysv openssh-server python3 curl ca-certificates \
       unzip zip file coreutils gawk sed grep procps netcat-openbsd \
-      iproute2 dnsutils less vim-tiny nano cowsay shellcheck rsync cron \
+      iproute2 dnsutils less vim-tiny nano cowsay shellcheck rsync cron dbus policykit-1 \
     && rm -rf /var/lib/apt/lists/*
 
 # Lab user with passwordless sudo (lab-only; never in production)

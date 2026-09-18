@@ -1,3 +1,3 @@
-HINT 1 | cp /opt/challenges/lesson16/worker.sh ~/lesson16_worker.sh && chmod +x ~/lesson16_worker.sh
+HINT 1 | The worker is in /opt/challenges/lesson16. Run it and read what it prints — it announces its PID and what signal it waits for.
 HINT 2 | Start it in the background: ~/lesson16_worker.sh &  — note the PID it prints.
 HINT 3 | Signal it: kill -USR1 <PID>  — then cat ~/lesson16_flag.txt

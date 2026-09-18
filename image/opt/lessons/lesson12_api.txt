@@ -4,10 +4,9 @@ Endpoint:  GET /flag
 Host:      http://localhost:8080
 
 Query parameters:
-- token (required): when token=lesson12 the server returns the flag.
-
-Example:
-  curl "http://localhost:8080/flag?token=lesson12"
+- token (required): the server only answers when you supply the
+  correct token. Think about what names this course's server: the
+  token is the word that identifies this lesson's service.
 
 Logs:
 - Access logs are written to /var/log/lesson12_access.log

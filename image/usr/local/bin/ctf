@@ -30,11 +30,13 @@ completed() { # completed <n> -> 0/1
   grep -qx "lesson$1" "$PROGRESS_FILE" 2>/dev/null
 }
 score_get() { cat "$SCORE_FILE" 2>/dev/null || echo 0; }
+MAX_SCORE=$(( 24 * 100 ))
 score_add() { # score_add <delta>
   local cur new
   cur=$(score_get)
   new=$(( cur + $1 ))
   [[ $new -lt 0 ]] && new=0
+  [[ $new -gt $MAX_SCORE ]] && new=$MAX_SCORE
   echo "$new" > "$SCORE_FILE"
 }
 mark_hint() { echo "lesson$1:$2" >> "$HINT_FILE"; }
@@ -176,19 +178,22 @@ cmd_submit() {
   fi
 
   echo -e "${GREEN}✅ Correct! Lesson $n flag accepted.${RESET}"
-  if "$BIN_DIR/validate_lesson" "$n"; then
-    echo -e "${GREEN}🔎 Skill checks passed.${RESET}"
-  else
-    echo -e "${YELLOW}⚠️  Flag accepted, but skill checks failed — review the lesson steps before moving on.${RESET}" >&2
+  if ! "$BIN_DIR/validate_lesson" "$n"; then
+    echo -e "${RED}❌ Skill checks failed — the lesson is NOT complete yet.${RESET}" >&2
+    echo -e "   Review the steps above, fix the missing artifacts, then re-run:"
+    echo -e "   ${YELLOW}ctf submit $n <your_flag>${RESET}"
+    return 1
   fi
+  echo -e "${GREEN}🔎 Skill checks passed.${RESET}"
 
   echo "lesson$n" >> "$PROGRESS_FILE"
   score_add 100
-  # hint penalty
-  local penalty=0 lvl
+  # hint penalty: only the deepest hint level used counts
+  local penalty=0 maxlvl=0 lvl
   for lvl in $(grep "^lesson$n:" "$HINT_FILE" 2>/dev/null | cut -d: -f2 | sort -u || true); do
-    case $lvl in 2) penalty=$((penalty+10));; 3) penalty=$((penalty+20));; esac
+    (( lvl > maxlvl )) && maxlvl=$lvl
   done
+  case $maxlvl in 2) penalty=10;; 3) penalty=20;; esac
   if (( penalty > 0 )); then
     score_add -$penalty
     echo -e "${DIM}(hint penalty: -$penalty XP)${RESET}"
@@ -227,8 +232,13 @@ cmd_reset() {
     info "All progress reset. Fresh start — good luck."
   else
     [[ $target =~ ^[0-9]+$ ]] || die "reset target must be <n> or 'all'"
-    sed -i "/^lesson$target$/d" "$PROGRESS_FILE" 2>/dev/null || true
-    info "Lesson $target marked incomplete."
+    if completed "$target"; then
+      sed -i "/^lesson$target$/d" "$PROGRESS_FILE" 2>/dev/null || true
+      score_add -100
+      info "Lesson $target marked incomplete (100 XP withdrawn)."
+    else
+      info "Lesson $target was not completed — nothing to reset."
+    fi
   fi
 }
 

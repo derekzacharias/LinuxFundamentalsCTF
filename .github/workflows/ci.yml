@@ -27,6 +27,13 @@ jobs:
             sleep 3
           done
           docker exec lab systemctl is-system-running || true
+      - name: Wait for lesson services
+        run: |
+          for i in $(seq 1 30); do
+            docker exec lab bash -c "systemctl is-active --quiet lesson6-logger lesson12-server lesson23-server" && break
+            sleep 3
+          done
+          docker exec lab bash -c "systemctl is-active lesson6-logger lesson12-server lesson23-server"
       - name: Run all 24 lessons (solvers + validators)
         run: docker exec lab bash -c "cd /opt/LinuxFundamentalsCTF && ./scripts/test.sh --lab student"
       - name: Container logs on failure

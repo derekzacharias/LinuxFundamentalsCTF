@@ -74,8 +74,10 @@ case "$num" in
   10)
     [[ -x "$HOME/lesson10.sh" ]] || fail "~/lesson10.sh missing or not executable"
     out=$("$HOME/lesson10.sh" /opt/data/lesson10_logs 2>/dev/null || true)
-    echo "$out" | grep -q 'FLAG{lesson_10_script_novice}' || fail "script did not output the flag"
-    ok "script executed and produced the flag"
+    echo "$out" | grep -q 'FLAG{lesson_10_script_novice}' || fail "script did not output the flag for the 7-log dir"
+    wrong_out=$("$HOME/lesson10.sh" /opt/data/lesson10_logs/subdir 2>/dev/null || true)
+    echo "$wrong_out" | grep -q 'FLAG{lesson_10' && fail "script printed the flag for a wrong log count" || true
+    ok "script logic (count == 7) verified"
     ;;
   11)
     has_flag /opt/data/lesson11/secret_info.txt 'FLAG{lesson_11_search_wizard}' || fail "REALFLAG missing from lesson11 data"
@@ -121,7 +123,7 @@ case "$num" in
     ;;
   18)
     need_file "$HOME/lesson18/flag.txt"
-    has_flag "$HOME/lesson18/flag.txt" 'FLAG{lesson_18_regex_raider}' || fail "~/lesson18/flag.txt content mismatch"
+    grep -qx 'FLAG{lesson_18_regex_raider}' "$HOME/lesson18/flag.txt" || fail "~/lesson18/flag.txt must contain exactly the joined flag"
     ok "regex extraction complete"
     ;;
   19)
@@ -164,11 +166,15 @@ case "$num" in
     ;;
   24)
     need_file "$HOME/lesson24/flag.txt"
-    has_flag "$HOME/lesson24/flag.txt" 'FLAG{lesson_24_breach_contained}' || fail "~/lesson24/flag.txt content mismatch"
+    grep -qx 'FLAG{lesson_24_breach_contained}' "$HOME/lesson24/flag.txt" || fail "~/lesson24/flag.txt content mismatch"
+    [[ -d "$HOME/lesson24/breach_logs" ]] || fail "stage-2 archive was never extracted (~/lesson24/breach_logs missing)"
+    [[ -f "$HOME/lesson24/stage2.tar.gz" ]] || fail "stage-1 was never decoded (~/lesson24/stage2.tar.gz missing)"
+    perm=$(stat -c %a /opt/challenges/lesson24/pieces.csv)
+    [[ "$perm" != "0" && "$perm" != "000" ]] || fail "/opt/challenges/lesson24/pieces.csv still unreadable (chmod it)"
     ok "capstone complete — course finished!"
     ;;
   *)
     echo "No validator for lesson $num" >&2
-    exit 0
+    exit 1
     ;;
 esac

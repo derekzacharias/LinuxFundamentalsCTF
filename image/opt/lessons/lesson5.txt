@@ -20,9 +20,10 @@ LEARN
   counts the lines containing "hello".
 
 TASK
-  /opt/data/lesson5_data.txt contains hundreds of lines.
-  Exactly one line contains the marker word FLAGLINE.
-  Find that line, save it to ~/lesson5_flag.txt, and read it.
+  /opt/data/lesson5_data.txt contains hundreds of lines. A few lines
+  carry the marker word FLAGLINE — but only ONE of them holds the real
+  flag; the others are decoys. Find the real one, save it to
+  ~/lesson5_flag.txt, and read it.
 
 SUBMIT
   ctf submit 5 <your_flag>

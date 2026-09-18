@@ -25,7 +25,12 @@ echo "[+] Copying course tree to /"
 cp -a "$IMAGE_DIR/." /
 
 echo "[+] Base permissions"
-chmod 0755 /usr/local/bin/* 2>/dev/null || true
+for b in ctf lessons lesson hint submit_flag check_flag progress validate_lesson \
+         start-game start-learning ctf-welcome lesson6-logger.sh lesson7_checker \
+         lesson12_server.py lesson16_worker.sh lesson20_flag.sh lesson21_checker \
+         lesson23_server.py; do
+  chmod 0755 "/usr/local/bin/$b" 2>/dev/null || true
+done
 chmod 0644 /opt/lessons/*.txt 2>/dev/null || true
 chmod 0644 /opt/ctf/welcome.txt || true
 chmod 0755 /opt/tools/lesson9_flag.sh 2>/dev/null || true
@@ -44,18 +49,17 @@ chmod 0600 /opt/flags/lesson2.flag /opt/flags/lesson3.flag /opt/flags/lesson5.fl
            /opt/flags/lesson24.flag || true
 chmod 0600 /opt/flags/lesson4.flag
 chmod 0640 /opt/flags/lesson8.flag
-chmod 0640 /opt/flags/lesson14.flag
+chmod 0644 /opt/flags/lesson14.flag
 chmod 0640 /opt/flags/lesson19.flag
 chown root:root /opt/flags/*.flag || true
 chmod 0644 /opt/flags/.hashes/*.sha256
 
 echo "[+] Groups"
 groupadd -f ctf8
-groupadd -f ctf14
 groupadd -f ctf19
 groupadd -f ctf21
 chown root:ctf8  /opt/flags/lesson8.flag
-chown root:ctf14 /opt/flags/lesson14.flag
+chown root:root /opt/flags/lesson14.flag
 chown root:ctf19 /opt/flags/lesson19.flag
 
 echo "[+] Lesson 19 shared directory (setgid)"
@@ -120,7 +124,7 @@ EOS
   chmod 0644 "$uh/get_flag4.sh"
 
   # Group memberships
-  usermod -aG ctf8,ctf14,ctf19,ctf21 "$u" || true
+  usermod -aG ctf8,ctf19,ctf21 "$u" || true
 
   # State dir
   install -d -m 0700 -o "$u" -g "$u" "$uh/.ctf_state" || true
