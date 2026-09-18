@@ -173,8 +173,8 @@ cmd_hint() {
 }
 
 cmd_submit() {
-  local n=${1:?usage: ctf submit <n> FLAG{...}}
-  local flag=${2:?usage: ctf submit <n> FLAG{...}}
+  local n=${1:?usage: ctf submit <n> FLAG}
+  local flag=${2:?usage: ctf submit <n> FLAG}
   [[ $n =~ ^[0-9]+$ && $n -ge 1 && $n -le $LAST_LESSON ]] || die "lesson must be 1-$LAST_LESSON"
   completed "$n" && { echo "Lesson $n already completed."; return 0; }
 

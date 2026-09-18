@@ -68,6 +68,25 @@ lab() {
     echo "== $fails lesson(s) FAILED"
     exit 1
   fi
+
+  # ---- game-loop regression: the real player path (ctf submit + state) ----
+  echo "== game-loop check (ctf submit end to end)"
+  sudo -H -u "$LAB_USER" ctf reset all >/dev/null 2>&1 || true
+  if ! sudo -H -u "$LAB_USER" ctf submit 1 FLAG{lesson_01_welcome_to_linux} >/dev/null 2>&1; then
+    echo "   game-loop: ctf submit FAILED"
+    exit 1
+  fi
+  if ! sudo -H -u "$LAB_USER" bash -c 'ctf status | grep -q "Lessons:.*1 / 24"'; then
+    echo "   game-loop: progress not recorded"
+    exit 1
+  fi
+  if ! sudo -H -u "$LAB_USER" bash -c 'ctf status | grep -q "XP:.*100 / 2400"'; then
+    echo "   game-loop: XP not awarded"
+    exit 1
+  fi
+  echo "   game-loop: PASS"
+
+  echo
   echo "== all 24 lessons PASS"
 }
 
