@@ -234,6 +234,8 @@ cmd_reset() {
     [[ $target =~ ^[0-9]+$ ]] || die "reset target must be <n> or 'all'"
     if completed "$target"; then
       sed -i "/^lesson$target$/d" "$PROGRESS_FILE" 2>/dev/null || true
+      sed -i "/^lesson$target:/d" "$HINT_FILE" 2>/dev/null || true
+      sed -i "/^lesson$target:/d" "$ATTEMPT_FILE" 2>/dev/null || true
       score_add -100
       info "Lesson $target marked incomplete (100 XP withdrawn)."
     else
